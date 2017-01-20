@@ -3,21 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | 秦风的Blog</title>
+  <title>关于spring jpa 多表关系查询时，自定义返回对象 | 秦风的Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。
+我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？
+例如，下面的我们会将user的所有属性都会带出来，
+12345 @Query(&amp;quot;SELECT u FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :ro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://petewell.cn/2017/01/18/hello-world/index.html">
+<meta property="og:title" content="关于spring jpa 多表关系查询时，自定义返回对象">
+<meta property="og:url" content="http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/index.html">
 <meta property="og:site_name" content="秦风的Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-01-18T08:38:45.000Z">
+<meta property="og:description" content="比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。
+我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？
+例如，下面的我们会将user的所有属性都会带出来，
+12345 @Query(&amp;quot;SELECT u FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :ro">
+<meta property="og:updated_time" content="2017-01-20T08:25:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="关于spring jpa 多表关系查询时，自定义返回对象">
+<meta name="twitter:description" content="比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。
+我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？
+例如，下面的我们会将user的所有属性都会带出来，
+12345 @Query(&amp;quot;SELECT u FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :ro">
   
     <link rel="alternate" href="/atom.xml" title="秦风的Blog" type="application/atom+xml">
   
@@ -74,10 +80,10 @@ Quick">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-关于spring-jpa-多表关系查询时，自定义返回对象" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/01/18/hello-world/" class="article-date">
-  <time datetime="2017-01-18T08:38:45.000Z" itemprop="datePublished">2017-01-18</time>
+    <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" class="article-date">
+  <time datetime="2017-01-16T07:41:20.000Z" itemprop="datePublished">2017-01-16</time>
 </a>
     
   </div>
@@ -88,7 +94,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      关于spring jpa 多表关系查询时，自定义返回对象
     </h1>
   
 
@@ -96,41 +102,41 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。</p>
+<p>我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？</p>
+<p>例如，下面的我们会将user的所有属性都会带出来，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> @Query(&quot;SELECT u FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> List&lt;BaseUser&gt; findUserByRoleCode(@Param(&quot;roleCode&quot;) String roleCode);</div><div class="line"></div><div class="line"> ⚠：上面select 后面的 “u” 是一个BaseUser，包括所有的属性。这是我们所不需要的，它泄漏了太多的信息。</div></pre></td></tr></table></figure>
+<p> 我们要指定字段，怎么定义呢？前面试了两次都失败了，最后参考<a href="https://my.oschina.net/u/1045177/blog/550173" target="_blank" rel="external">Spring Data Jpa 查询返回自定义对象</a> 才解决，非常感谢。也分享下我的经验。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> 1、 @Query(&quot;SELECT name,id,org FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> ⚠ 这个根本就不能编译通过。</div><div class="line"></div><div class="line"> 2、 @Query(&quot;SELECT u.name,u.id,u.org  FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> ⚠ 这个可以编译通过 但返回的不是BaseUser对象，只包括name，id属性和 org对象。不符合我的条件。</div><div class="line"></div><div class="line">3、@Query(&quot;SELECT new BaseUser(u.id,u.loginname,u.roles,u.org)  FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div></pre></td></tr></table></figure>
+<p>只有这个是正确的，返回了baseUser对象。这个要注意的是必须在实体baseuser中创建相应的构造方法。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/18/hello-world/" data-id="ciy5jxiws0006jss6iyenfm9f" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" data-id="ciy5jxix6000ejss607kihpsk" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/01/18/wellcome/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/18/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          wellcome
+          Hello World
         
       </div>
     </a>
   
   
-    <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/01/05/sonar-配置服务默认路径问题/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">关于spring jpa 多表关系查询时，自定义返回对象</div>
+      <div class="article-nav-title">sonar 配置服务默认路径问题</div>
     </a>
   
 </nav>

@@ -40,7 +40,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">随时记录，从现在开始吧…</a>
+          <a href="/" id="subtitle">生活、学习，点点滴滴，从现在开始吧…</a>
         </h2>
       
     </div>
@@ -99,7 +99,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="ciy58uiv20000ygs605iofqju" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="ciy5jxix2000ajss6zpthd17y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,9 +144,406 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/18/hello-world/" data-id="ciy58jke30003x4s6s39xuwix" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/18/hello-world/" data-id="ciy5jxiws0006jss6iyenfm9f" class="article-share-link">Share</a>
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-关于spring-jpa-多表关系查询时，自定义返回对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" class="article-date">
+  <time datetime="2017-01-16T07:41:20.000Z" itemprop="datePublished">2017-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/">关于spring jpa 多表关系查询时，自定义返回对象</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。</p>
+<p>我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？</p>
+<p>例如，下面的我们会将user的所有属性都会带出来，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> @Query(&quot;SELECT u FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> List&lt;BaseUser&gt; findUserByRoleCode(@Param(&quot;roleCode&quot;) String roleCode);</div><div class="line"></div><div class="line"> ⚠：上面select 后面的 “u” 是一个BaseUser，包括所有的属性。这是我们所不需要的，它泄漏了太多的信息。</div></pre></td></tr></table></figure>
+<p> 我们要指定字段，怎么定义呢？前面试了两次都失败了，最后参考<a href="https://my.oschina.net/u/1045177/blog/550173" target="_blank" rel="external">Spring Data Jpa 查询返回自定义对象</a> 才解决，非常感谢。也分享下我的经验。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> 1、 @Query(&quot;SELECT name,id,org FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> ⚠ 这个根本就不能编译通过。</div><div class="line"></div><div class="line"> 2、 @Query(&quot;SELECT u.name,u.id,u.org  FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div><div class="line"></div><div class="line"> ⚠ 这个可以编译通过 但返回的不是BaseUser对象，只包括name，id属性和 org对象。不符合我的条件。</div><div class="line"></div><div class="line">3、@Query(&quot;SELECT new BaseUser(u.id,u.loginname,u.roles,u.org)  FROM BaseUser u JOIN u.roles roles WHERE roles.roleCode = :roleCode)</div></pre></td></tr></table></figure>
+<p>只有这个是正确的，返回了baseUser对象。这个要注意的是必须在实体baseuser中创建相应的构造方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" data-id="ciy5jxix6000ejss607kihpsk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sonar-配置服务默认路径问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/sonar-配置服务默认路径问题/" class="article-date">
+  <time datetime="2017-01-05T08:38:48.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/05/sonar-配置服务默认路径问题/">sonar 配置服务默认路径问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sonar 配置后台服务时，出现“Temp directory is not writable” 问题解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">WrapperSimpleApp: Encountered an error running main: java.lang.IllegalStateException: Temp directory is not writable: C:\Windows\system32\config\systemprofile\AppData\Local\Temp\</div><div class="line">java.lang.IllegalStateException: Temp directory is not writable: C:\Windows\system32\config\systemprofile\AppData\Local\Temp\</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableDir(MinimumViableSystem.java:60)</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableTempDir(MinimumViableSystem.java:52)</div><div class="line">at org.sonar.process.MinimumViableSystem.check(MinimumViableSystem.java:45)</div><div class="line">at org.sonar.application.App.main(App.java:108)</div><div class="line">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</div><div class="line">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)</div><div class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)</div><div class="line">at java.lang.reflect.Method.invoke(Method.java:597)</div><div class="line">at org.tanukisoftware.wrapper.WrapperSimpleApp.run(WrapperSimpleApp.java:240)</div><div class="line">at java.lang.Thread.run(Thread.java:619)</div><div class="line">Caused by: java.io.IOException: 系统找不到指定的路径。</div><div class="line">at java.io.WinNTFileSystem.createFileExclusively(Native Method)</div><div class="line">at java.io.File.checkAndCreate(File.java:1704)</div><div class="line">at java.io.File.createTempFile(File.java:1792)</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableDir(MinimumViableSystem.java:57)</div><div class="line">... 9 more</div><div class="line">&amp;lt;-- Wrapper Stopped</div><div class="line">The SonarQube service was launched, but failed to start.</div></pre></td></tr></table></figure>
+<p>解决办法如下：</p>
+<p>在conf目录找到wrapper.conf文件，打开。<br>在“wrapper.java.additional.1=-Djava.awt.headless=true”下增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">###set temp dir ,solve Temp directory is not writable</div><div class="line">wrapper.java.additional.2=-Djava.io.tmpdir=../../temp`</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/05/sonar-配置服务默认路径问题/" data-id="ciy5jxiwv0007jss67lnc2pez" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-关于arcgis-server性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/关于arcgis-server性能优化/" class="article-date">
+  <time datetime="2017-01-05T08:31:33.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/05/关于arcgis-server性能优化/">关于arcgis server性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>arcgis server安装后，池化“最大实例数”默认为2。可在“服务属性”对话框的池化选项卡中设置最大实例数，调整的原则为：首先应将实例数设置为等于 N+1，其中 N 是计算机上 CPU 核的数量。在个别情况下，如果您发现计算机上的 CPU 利用率未接近 90%，则可以考虑添加更多实例。</p>
+<p><a href="http://help.arcgis.com/zh-cn/arcgisdesktop/10.0/help/index.html#/na/00530000009r000000/" target="_blank" rel="external">http://help.arcgis.com/zh-cn/arcgisdesktop/10.0/help/index.html#/na/00530000009r000000/</a></p>
+<p>其他的部署及参数要求可参考：</p>
+<p><a href="http://help.arcgis.com/zh-cn/arcgisdesktop/10.0/help/index.html#/na/000400000006000000/" target="_blank" rel="external">http://help.arcgis.com/zh-cn/arcgisdesktop/10.0/help/index.html#/na/000400000006000000/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/05/关于arcgis-server性能优化/" data-id="ciy5jxix4000bjss6pz46g7tl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIS/">GIS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" class="article-date">
+  <time datetime="2017-01-05T08:29:57.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/">关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、临时表空间的作用"><a href="#一、临时表空间的作用" class="headerlink" title="一、临时表空间的作用"></a>一、临时表空间的作用</h3><p>Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会<br>使用大量的temporary段 ：<br>索引create或rebuild；<br>Order by 或 group by；<br>Distinct 操作；<br>Union 或 intersect 或 minus；<br>Sort-merge joins；<br>IMP/EXP操作；</p>
+<h3 id="二、临时表空间建多大合适，个人建议"><a href="#二、临时表空间建多大合适，个人建议" class="headerlink" title="二、临时表空间建多大合适，个人建议"></a>二、临时表空间建多大合适，个人建议</h3><p>1.一般的业务系统频繁使用临时段的需要单独创建临时表空间<br>2.临时表空间的太大或太小都会影响数据库性能，一般建议根据业务系统一天产生的大小作为初始大小。<br>3.临时表空间需要定期维护</p>
+<h3 id="三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）"><a href="#三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）" class="headerlink" title="三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）"></a>三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）</h3><ol>
+<li>常用查询临时表空间视图</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">select * from v$datafile //查询数据文件</div><div class="line">select * from v$tablespace //查询表空间信息</div><div class="line">select * from v$tempfile //查询临时文件信息</div><div class="line">select S.tablespace_name,S.TABLESPACE_SIZE/1024/1024 TSIZE,S.ALLOCATED_SPACE/1024/1024 USIZE,S.FREE_SPACE/1024/1024 FFIZE from dba_temp_free_space S //查询临时表空间使用情况</div></pre></td></tr></table></figure>
+<ol>
+<li>临时表空间收缩</li>
+</ol>
+<p>收缩临时表空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter tablespace USER_TEMP_TBS shrink space keep 200M;</div></pre></td></tr></table></figure>
+<p>收缩临时文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLESPACE USER_TEMP_TBS SHRINK TEMPFILE &apos;/opt/oracle/oradata/user_temp_tbs01.dbf&apos; keep 200M;</div></pre></td></tr></table></figure>
+<p>以上操作已经在测试环境中验证过，可以立即收缩空间，对数据库无太大影响，如果是生产库建议晚上做以上操作，否则会出现等待事件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" data-id="ciy5jxix9000fjss6sjikxa15" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Jenkins部署到远程（Linux服务器）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/22/Jenkins部署到远程（Linux服务器）/" class="article-date">
+  <time datetime="2016-01-22T05:51:22.000Z" itemprop="datePublished">2016-01-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/22/Jenkins部署到远程（Linux服务器）/">Jenkins部署到远程（Linux服务器）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载自：<a href="http://www.tuicool.com/articles/buEFfi7" target="_blank" rel="external">http://www.tuicool.com/articles/buEFfi7</a></p>
+<p>接着上次的说，上次只是实现了本地自动化部署，这种情况只是针对开发环境和部署环境在同一台机器时适用。不过，一般情况下，我们都会要把项目部署到远程Linux服务器上，所以这节的主要内容是：</p>
+<p>1、部署开发环境下的Web项目到远程Linux服务器；</p>
+<p>2、实现自动备份；</p>
+<h4 id="准备环境："><a href="#准备环境：" class="headerlink" title="准备环境："></a>准备环境：</h4><p>本地开发，安装虚拟机，在虚拟机安装Linux服务器</p>
+<h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><p>1、安装插件，登录到Jenkins后台，选择“系统管理”&#8212;&gt;“管理插件”，在可选插件中，选择 <a href="http://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin" target="_blank" rel="external">Publish Over SSH</a> ，安装这个插件；</p>
+<p>2、安装完后，配置这个选项，在系统管理中找到，如下图：</p>
+<p>如果SSH是通过Key来进行验证的这里需要输入相关服务器的Key，要是通过用户名密码进行验证的话，SSH Key的输入栏可以全部置空。</p>
+<p>&nbsp;</p>
+<p><a href="http://image.lxway.com/upload/6/74/674c63a970af2ad41c161960683b4034.jpg" target="_blank" rel="external"><img src="http://image.lxway.com/upload/6/74/674c63a970af2ad41c161960683b4034_thumb.jpg" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件" title="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></a></p>
+<p>我是通过用户名和密码进行验证的，因此SSH Server要配置服务器的信息还有用户名和密码。</p>
+<p>&nbsp;</p>
+<p><a href="http://image.lxway.com/upload/2/ef/2ef457dfa5ec13528c2a5997bad5e4a1.jpg" target="_blank" rel="external"><img src="http://image.lxway.com/upload/2/ef/2ef457dfa5ec13528c2a5997bad5e4a1_thumb.jpg" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件" title="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></a></p>
+<p>这里只说下主要配置项，SSH Server Name，服务器名称，自己随便起个名字即可；Hostname，服务器的IP地址；Username，远程服务器的帐号，这里我用了root；Remote Directory，访问路径，“/”根路径即可。</p>
+<p>其他的选项参考， <a href="http://blog.csdn.net/wangmuming/article/details/22925895" target="_blank" rel="external">http://blog.csdn.net/wangmuming/article/details/22925895</a>。</p>
+<p>3、这次不用新建项目了，以上次建的项目为基础，做个拷贝，在此基础上修改就行，如图：</p>
+<p><img src="http://img2.tuicool.com/22QBfuI.png!web" alt=""></p>
+<p>4、上面的都不用动，只修改“构建后操作”，把上次部署war包的方式（Deploy war/ear to a container）删除，添加刚才安装插件后的（Send build artifacts over SSH），配置见图：</p>
+<p><img src="http://img1.tuicool.com/iUruy2.png!web" alt=""></p>
+<p>需要注意的地方：Remote directory，这个最好配置为绝对路径，主要是为了临时放置项目的地方，在第5步可以看到；</p>
+<p>5、增加deploy.sh脚本，新下载的tomcat的bin目录没有该文件，自己新建一个即可，里面的内容如下，根据自己的实际情况进行调整，都是一些常见的shell命令：</p>
+<pre class="prettyprint bash"><span class="shebang">#!/bin/sh</span>
+export JAVA_HOME=/usr/java/jdk1.7.0_75
+kill -9 $(ps -aef | grep tomcat | grep -v grep | awk <span class="string">'{print $2}'</span>)
+cd /app/programs/tomcat_test1/webapps
+mv ROOT.war ROOT_`date +%Y%m%d%H%M%S`.war.bak
+<span class="comment">#rm -rf ROOT</span>
+mv  /app/programs/temp/mvcDemo3*-SNAPSHOT.war ROOT.war
+cd /app/programs/tomcat_test1/bin
+
+./startup.sh</pre>
+
+<p>6、经过以上配置后，访问测试，运行通过。</p>
+<p>总结：截至到现在，已经完成了自动化部署到本地和远程的全部配置。我这两篇文档主要侧重于操作实现和备忘，一些细节未进行说明，有需要的朋友可以自行往下深入研究，可以一块讨论。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2016/01/22/Jenkins部署到远程（Linux服务器）/" data-id="ciy5jxiwe0002jss6rieaodmz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/" class="article-date">
+  <time datetime="2016-01-05T08:40:04.000Z" itemprop="datePublished">2016-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/">在linux 使用exp导出备份数据时提示EXP-00091: Exporting questionable statistics.</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在linux 使用exp导出备份数据时提示：<br>EXP-00091: Exporting questionable statistics.<br>1.问题产生的原因<br>linux下oracle用户环境变量语言集和oracle数据库中的环境变量语言集不同<br>2.解决方法<br>只要将oracle环境变量语言集改成和数据库环境变量语言集一样的就可以<br>查看服务端字符集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from nls_database_parameters t where t.parameter=&apos;NLS_CHARACTERSET&apos;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from v$nls_parameters where parameter=&apos;NLS_CHARACTERSET&apos;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[oracle@rac01 ~]$ export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</div><div class="line">[oracle@rac01 ~]$ exp tuser/****** tables=UCM_BOARDWS_INSTALLWORK,UCM_BOARDWS_APINSTALL file=/orabak/1015installworkBak.dmp log=/orabak/1015installworkBak.log</div><div class="line"></div><div class="line">Export: Release 11.2.0.3.0 - Production on Wed Oct 15 10:05:16 2014</div><div class="line"></div><div class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates. All rights reserved.</div><div class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production</div><div class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</div><div class="line">Data Mining and Real Application Tes</div><div class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</div><div class="line"></div><div class="line">About to export specified tables via Conventional Path ...</div><div class="line">. . exporting table UCM_BOARDWS_INSTALLWORK 1998871 rows exported</div><div class="line">. . exporting table UCM_BOARDWS_APINSTALL 2190269 rows exported</div><div class="line">Export terminated successfully without warnings.</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/" data-id="ciy5jxixb000ijss687g3kgju" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/" class="article-date">
+  <time datetime="2015-08-06T10:23:01.000Z" itemprop="datePublished">2015-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/">checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>checkstyle检查问题</p>
+<p>ot an exception &#8211; expecting &#8216;&#8221;&#8216;, found &#8216;&lt;EOF&gt;&#8217;</p>
+<p>解决办法：</p>
+<p>在配置文件的根节点上增加编码的配置。</p>
+<p>&lt;module name=&#8221;Checker&#8221;&gt;</p>
+<p>&lt;property name=&#8221;severity&#8221; value=&#8221;warning&#8221;/&gt;</p>
+<p>&lt;property name=&#8221;charset&#8221; value=&#8221;UTF-8&#8243;/&gt; &lt;!&#8211;新增&#8211;&gt;</p>
+<p><a href="http://www.cnblogs.com/bnbqian/p/3451777.html" target="_blank" rel="external">http://www.cnblogs.com/bnbqian/p/3451777.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/" data-id="ciy5jxiwp0005jss6ismgbp0p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Idea-gradle-android-开发问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/28/Idea-gradle-android-开发问题/" class="article-date">
+  <time datetime="2015-07-28T07:38:53.000Z" itemprop="datePublished">2015-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/28/Idea-gradle-android-开发问题/">Idea gradle android 开发问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Idea gradle android 开发问题1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">* What went wrong:</div><div class="line"></div><div class="line">A problem occurred configuring project &apos;:app&apos;.</div><div class="line">&amp;gt; Could not resolve all dependencies for configuration &apos;:app:_debugCompile&apos;.</div><div class="line">   &amp;gt; Could not find com.android.support:support-v4:21.0.3.</div><div class="line">     Searched in the following locations:</div><div class="line">         http://nexus.cabletech.com.cn/content/groups/public/com/android/support/support-v4/21.0.3/support-v4-21.0.3.pom</div><div class="line">         http://nexus.cabletech.com.cn/content/groups/public/com/android/support/support-v4/21.0.3/support-v4-21.0.3.jar</div><div class="line">         https://repo1.maven.org/maven2/com/android/support/support-v4/21.0.3/support-v4-21.0.3.pom</div><div class="line">         https://repo1.maven.org/maven2/com/android/support/support-v4/21.0.3/support-v4-21.0.3.jar</div><div class="line">         https://jcenter.bintray.com/com/android/support/support-v4/21.0.3/support-v4-21.0.3.pom</div><div class="line">         https://jcenter.bintray.com/com/android/support/support-v4/21.0.3/support-v4-21.0.3.jar</div><div class="line">     Required by:</div><div class="line">         workspace:app:unspecified &amp;gt; com.facebook.fresco:fresco:0.5.3 &amp;gt; com.facebook.fresco:drawee:0.5.3</div><div class="line">         workspace:app:unspecified &amp;gt; com.facebook.fresco:fresco:0.5.3 &amp;gt; com.facebook.fresco:imagepipeline:0.5.3</div></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<p>一般都是因为Android SDK Manager中没有下载Extras下的Android Support Repository </p>
+<p>没有下载导致的。</p>
+<p> 参考：<a href="http://vjson.com/wordpress/could-not-find-com-android-support.html" target="_blank" rel="external">http://vjson.com/wordpress/could-not-find-com-android-support.html</a></p>
+<p>Idea gradle android 开发问题2:</p>
+<ul>
+<li>What went wrong:</li>
+</ul>
+<p>Execution failed for task ‘:app:processArmeabiDebugResources’.</p>
+<p>&gt; com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process ‘command ‘E:\android-sdk\sdk\build-tools\22.0.1\aapt.exe’’ finished with non-zero exit value 1</p>
+<p>解决方法：</p>
+<p>在build.gradle中引入的依赖包中不能使用“+”。</p>
+<p>之前：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    //compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</div><div class="line">    compile &apos;com.android.support:appcompat-v7:22.2.+&apos;</div><div class="line">    compile &apos;com.google.code.gson:gson:2.3.1&apos;</div><div class="line">    //compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</div><div class="line">    //compile &apos;com.nostra13.universalimageloader:universal-image-loader:1.9.3&apos;</div><div class="line">    compile &apos;de.greenrobot:eventbus:2.4.0&apos;</div><div class="line">    compile &apos;com.facebook.fresco:fresco:0.5.3&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp:2.4.0&apos;</div><div class="line">    //compile &apos;com.squareup.retrofit:retrofit:1.9.0&apos;</div><div class="line">    compile(&apos;com.mikepenz:materialdrawer:3.1.2@aar&apos;) &#123;</div><div class="line">        transitive = true</div><div class="line">    &#125;</div><div class="line">    compile &apos;com.android.support:design:22.2.+&apos;</div><div class="line">    compile &apos;com.mikepenz:octicons-typeface:2.2.0@aar&apos;</div><div class="line">    compile &apos;com.rengwuxian.materialedittext:library:2.1.4@aar&apos;</div><div class="line">    compile files(&apos;libs/AMap_3DMap_V2.4.1.jar&apos;)</div><div class="line">    compile files(&apos;libs/Android_Location_V1.3.2.jar&apos;)</div><div class="line">    compile files(&apos;libs/Android_Navi_V1.1.2.jar&apos;)</div><div class="line">    compile files(&apos;libs/Msc.jar&apos;)</div><div class="line">    compile files(&apos;libs/AMap_Services_V2.4.0.jar&apos;)</div></pre></td></tr></table></figure>
+<p>之后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    //compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</div><div class="line">    compile &apos;com.android.support:appcompat-v7:22.2.0&apos;</div><div class="line">    compile &apos;com.google.code.gson:gson:2.3.1&apos;</div><div class="line">    //compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</div><div class="line">    //compile &apos;com.nostra13.universalimageloader:universal-image-loader:1.9.3&apos;</div><div class="line">    compile &apos;de.greenrobot:eventbus:2.4.0&apos;</div><div class="line">    compile &apos;com.facebook.fresco:fresco:0.5.3&apos;</div><div class="line">    compile &apos;com.squareup.okhttp:okhttp:2.4.0&apos;</div><div class="line">    //compile &apos;com.squareup.retrofit:retrofit:1.9.0&apos;</div><div class="line">    compile(&apos;com.mikepenz:materialdrawer:3.1.2@aar&apos;) &#123;</div><div class="line">        transitive = true</div><div class="line">    &#125;</div><div class="line">    compile &apos;com.android.support:design:22.2.0&apos;</div><div class="line">    compile &apos;com.mikepenz:octicons-typeface:2.2.0@aar&apos;</div><div class="line">    compile &apos;com.rengwuxian.materialedittext:library:2.1.4@aar&apos;</div><div class="line">    compile files(&apos;libs/AMap_3DMap_V2.4.1.jar&apos;)</div><div class="line">    compile files(&apos;libs/Android_Location_V1.3.2.jar&apos;)</div><div class="line">    compile files(&apos;libs/Android_Navi_V1.1.2.jar&apos;)</div><div class="line">    compile files(&apos;libs/Msc.jar&apos;)</div><div class="line">    compile files(&apos;libs/AMap_Services_V2.4.0.jar&apos;)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2015/07/28/Idea-gradle-android-开发问题/" data-id="ciy5jxiw40000jss67spo49f9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
+
     </footer>
   </div>
   
@@ -163,15 +560,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
     </div>
   </div>
 
@@ -189,6 +600,18 @@
         
           <li>
             <a href="/2017/01/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/">关于spring jpa 多表关系查询时，自定义返回对象</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/sonar-配置服务默认路径问题/">sonar 配置服务默认路径问题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/关于arcgis-server性能优化/">关于arcgis server性能优化</a>
           </li>
         
       </ul>

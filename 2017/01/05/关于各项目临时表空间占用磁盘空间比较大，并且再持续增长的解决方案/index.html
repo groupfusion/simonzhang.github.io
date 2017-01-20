@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案 | 秦风的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
+二、临时表空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案">
+<meta property="og:url" content="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/index.html">
+<meta property="og:site_name" content="秦风的Blog">
+<meta property="og:description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
+二、临时表空">
+<meta property="og:updated_time" content="2017-01-20T08:19:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案">
+<meta name="twitter:description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
+二、临时表空">
+  
+    <link rel="alternate" href="/atom.xml" title="秦风的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">秦风的Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">生活、学习，点点滴滴，从现在开始吧…</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/category">分类</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://petewell.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" class="article-date">
+  <time datetime="2017-01-05T08:29:57.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、临时表空间的作用"><a href="#一、临时表空间的作用" class="headerlink" title="一、临时表空间的作用"></a>一、临时表空间的作用</h3><p>Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会<br>使用大量的temporary段 ：<br>索引create或rebuild；<br>Order by 或 group by；<br>Distinct 操作；<br>Union 或 intersect 或 minus；<br>Sort-merge joins；<br>IMP/EXP操作；</p>
+<h3 id="二、临时表空间建多大合适，个人建议"><a href="#二、临时表空间建多大合适，个人建议" class="headerlink" title="二、临时表空间建多大合适，个人建议"></a>二、临时表空间建多大合适，个人建议</h3><p>1.一般的业务系统频繁使用临时段的需要单独创建临时表空间<br>2.临时表空间的太大或太小都会影响数据库性能，一般建议根据业务系统一天产生的大小作为初始大小。<br>3.临时表空间需要定期维护</p>
+<h3 id="三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）"><a href="#三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）" class="headerlink" title="三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）"></a>三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）</h3><ol>
+<li>常用查询临时表空间视图</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">select * from v$datafile //查询数据文件</div><div class="line">select * from v$tablespace //查询表空间信息</div><div class="line">select * from v$tempfile //查询临时文件信息</div><div class="line">select S.tablespace_name,S.TABLESPACE_SIZE/1024/1024 TSIZE,S.ALLOCATED_SPACE/1024/1024 USIZE,S.FREE_SPACE/1024/1024 FFIZE from dba_temp_free_space S //查询临时表空间使用情况</div></pre></td></tr></table></figure>
+<ol>
+<li>临时表空间收缩</li>
+</ol>
+<p>收缩临时表空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter tablespace USER_TEMP_TBS shrink space keep 200M;</div></pre></td></tr></table></figure>
+<p>收缩临时文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLESPACE USER_TEMP_TBS SHRINK TEMPFILE &apos;/opt/oracle/oradata/user_temp_tbs01.dbf&apos; keep 200M;</div></pre></td></tr></table></figure>
+<p>以上操作已经在测试环境中验证过，可以立即收缩空间，对数据库无太大影响，如果是生产库建议晚上做以上操作，否则会出现等待事件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" data-id="ciy5jxix9000fjss6sjikxa15" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/05/关于arcgis-server性能优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于arcgis server性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/22/Jenkins部署到远程（Linux服务器）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Jenkins部署到远程（Linux服务器）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/18/wellcome/">wellcome</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/">关于spring jpa 多表关系查询时，自定义返回对象</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/sonar-配置服务默认路径问题/">sonar 配置服务默认路径问题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/关于arcgis-server性能优化/">关于arcgis server性能优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 simon zhang<br>
+      Powered by <a href="http://petewell.cn" target="_blank">petewell</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/category" class="mobile-nav-link">分类</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
