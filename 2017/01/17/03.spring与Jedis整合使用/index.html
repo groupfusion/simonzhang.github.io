@@ -3,33 +3,42 @@
 <head>
   <meta charset="utf-8">
   
-  <title>checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘ | 秦风的Blog</title>
+  <title>03. spring与jedis整合使用 | 秦风的Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="checkstyle检查问题
-ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &amp;#8216;&amp;lt;EOF&amp;gt;&amp;#8217;
-解决办法：
-在配置文件的根节点上增加编码的配置。
-&amp;lt;module name=&amp;#8221;Checker&amp;#8221;&amp;gt;
-&amp;lt;property name=&amp;#8221;seve">
+  <meta name="description" content="##03. spring与jedis整合使用
+spring redis
+04.spring-data-redis与Jedis整合使用
+spring整合redis实现无侵入式的缓存管理
+Spring集成Redis使用注解
+SpringMVC+Shiro+RedisCluster搭建session统一管理
+shiro-redis
+
+ehcache*Spring使用Cache、整合Ehcache">
 <meta property="og:type" content="article">
-<meta property="og:title" content="checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘">
-<meta property="og:url" content="http://petewell.cn/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/index.html">
+<meta property="og:title" content="03. spring与jedis整合使用">
+<meta property="og:url" content="http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/index.html">
 <meta property="og:site_name" content="秦风的Blog">
-<meta property="og:description" content="checkstyle检查问题
-ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &amp;#8216;&amp;lt;EOF&amp;gt;&amp;#8217;
-解决办法：
-在配置文件的根节点上增加编码的配置。
-&amp;lt;module name=&amp;#8221;Checker&amp;#8221;&amp;gt;
-&amp;lt;property name=&amp;#8221;seve">
-<meta property="og:updated_time" content="2017-01-20T08:11:01.000Z">
+<meta property="og:description" content="##03. spring与jedis整合使用
+spring redis
+04.spring-data-redis与Jedis整合使用
+spring整合redis实现无侵入式的缓存管理
+Spring集成Redis使用注解
+SpringMVC+Shiro+RedisCluster搭建session统一管理
+shiro-redis
+
+ehcache*Spring使用Cache、整合Ehcache">
+<meta property="og:updated_time" content="2017-01-20T08:44:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘">
-<meta name="twitter:description" content="checkstyle检查问题
-ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &amp;#8216;&amp;lt;EOF&amp;gt;&amp;#8217;
-解决办法：
-在配置文件的根节点上增加编码的配置。
-&amp;lt;module name=&amp;#8221;Checker&amp;#8221;&amp;gt;
-&amp;lt;property name=&amp;#8221;seve">
+<meta name="twitter:title" content="03. spring与jedis整合使用">
+<meta name="twitter:description" content="##03. spring与jedis整合使用
+spring redis
+04.spring-data-redis与Jedis整合使用
+spring整合redis实现无侵入式的缓存管理
+Spring集成Redis使用注解
+SpringMVC+Shiro+RedisCluster搭建session统一管理
+shiro-redis
+
+ehcache*Spring使用Cache、整合Ehcache">
   
     <link rel="alternate" href="/atom.xml" title="秦风的Blog" type="application/atom+xml">
   
@@ -86,10 +95,10 @@ ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-03.spring与Jedis整合使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/" class="article-date">
-  <time datetime="2015-08-06T10:23:01.000Z" itemprop="datePublished">2015-08-06</time>
+    <a href="/2017/01/17/03.spring与Jedis整合使用/" class="article-date">
+  <time datetime="2017-01-17T01:47:57.000Z" itemprop="datePublished">2017-01-17</time>
 </a>
     
   </div>
@@ -100,7 +109,7 @@ ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &
         
   
     <h1 class="article-title" itemprop="name">
-      checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘
+      03. spring与jedis整合使用
     </h1>
   
 
@@ -108,22 +117,23 @@ ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>checkstyle检查问题</p>
-<p>ot an exception &#8211; expecting &#8216;&#8221;&#8216;, found &#8216;&lt;EOF&gt;&#8217;</p>
-<p>解决办法：</p>
-<p>在配置文件的根节点上增加编码的配置。</p>
-<p>&lt;module name=&#8221;Checker&#8221;&gt;</p>
-<p>&lt;property name=&#8221;severity&#8221; value=&#8221;warning&#8221;/&gt;</p>
-<p>&lt;property name=&#8221;charset&#8221; value=&#8221;UTF-8&#8243;/&gt; &lt;!&#8211;新增&#8211;&gt;</p>
-<p><a href="http://www.cnblogs.com/bnbqian/p/3451777.html" target="_blank" rel="external">http://www.cnblogs.com/bnbqian/p/3451777.html</a></p>
+        <p>##03. spring与jedis整合使用</p>
+<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
+<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
+<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
+<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
+</ul>
+<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/" data-id="ciy5jxiwp0005jss6ismgbp0p" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/" data-id="ciy5kc23m0006lss6ox3kpv1v" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
     </footer>
   </div>
@@ -131,19 +141,19 @@ ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &
     
 <nav id="article-nav">
   
-    <a href="/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/17/02.nginx_tomcat_redis/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          在linux 使用exp导出备份数据时提示EXP-00091: Exporting questionable statistics.
+          02.nginx+tomcat+redis实现集群环境的session共享。
         
       </div>
     </a>
   
   
-    <a href="/2015/07/28/Idea-gradle-android-开发问题/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/01/17/01.redis3.2.6_安装及分布式配置/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Idea gradle android 开发问题</div>
+      <div class="article-nav-title">01. Redis3.2.6 安装及分布式配置</div>
     </a>
   
 </nav>

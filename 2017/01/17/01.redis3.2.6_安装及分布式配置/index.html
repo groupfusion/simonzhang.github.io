@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>01. Redis3.2.6 安装及分布式配置 | 秦风的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="01.Redis3.2.6 安装及分布式配置参考redis3.0.3 安装与配置
+1、安装####1.1 mac 上安装redis
+1）官网 https://redis.io/ 下载最新的稳定版本，我下的是3.2.6
+2）sudo tar -zxf redis-3.2.6.zip 解压文件
+3）进入解压后的目录 cd redis－3.2.6
+4)、sudo make test 测试编译
+12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01. Redis3.2.6 安装及分布式配置">
+<meta property="og:url" content="http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/index.html">
+<meta property="og:site_name" content="秦风的Blog">
+<meta property="og:description" content="01.Redis3.2.6 安装及分布式配置参考redis3.0.3 安装与配置
+1、安装####1.1 mac 上安装redis
+1）官网 https://redis.io/ 下载最新的稳定版本，我下的是3.2.6
+2）sudo tar -zxf redis-3.2.6.zip 解压文件
+3）进入解压后的目录 cd redis－3.2.6
+4)、sudo make test 测试编译
+12345">
+<meta property="og:updated_time" content="2017-01-20T08:41:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01. Redis3.2.6 安装及分布式配置">
+<meta name="twitter:description" content="01.Redis3.2.6 安装及分布式配置参考redis3.0.3 安装与配置
+1、安装####1.1 mac 上安装redis
+1）官网 https://redis.io/ 下载最新的稳定版本，我下的是3.2.6
+2）sudo tar -zxf redis-3.2.6.zip 解压文件
+3）进入解压后的目录 cd redis－3.2.6
+4)、sudo make test 测试编译
+12345">
+  
+    <link rel="alternate" href="/atom.xml" title="秦风的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">秦风的Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">生活、学习，点点滴滴，从现在开始吧…</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/category">分类</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://petewell.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-01.redis3.2.6_安装及分布式配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/17/01.redis3.2.6_安装及分布式配置/" class="article-date">
+  <time datetime="2017-01-17T01:47:57.000Z" itemprop="datePublished">2017-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      01. Redis3.2.6 安装及分布式配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="01-Redis3-2-6-安装及分布式配置"><a href="#01-Redis3-2-6-安装及分布式配置" class="headerlink" title="01.Redis3.2.6 安装及分布式配置"></a>01.Redis3.2.6 安装及分布式配置</h2><p>参考<a href="http://blog.csdn.net/miyatang/article/details/47257209" target="_blank" rel="external">redis3.0.3 安装与配置</a></p>
+<h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><p>####1.1 mac 上安装redis</p>
+<p>1）官网 <a href="https://redis.io/" target="_blank" rel="external">https://redis.io/</a> 下载最新的稳定版本，我下的是3.2.6</p>
+<p>2）sudo tar -zxf redis-3.2.6.zip 解压文件</p>
+<p>3）进入解压后的目录 cd redis－3.2.6</p>
+<p>4)、sudo make test 测试编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">  21 seconds - integration/convert-zipmap-hash-on-load</div><div class="line">  85 seconds - unit/dump</div><div class="line">  8 seconds - unit/limits</div><div class="line">  14 seconds - unit/introspection-2</div><div class="line">  78 seconds - integration/replication-2</div><div class="line">  93 seconds - unit/sort</div><div class="line">  14 seconds - unit/bitfield</div><div class="line">  100 seconds - unit/type/list-3</div><div class="line">  41 seconds - unit/maxmemory</div><div class="line">  43 seconds - unit/bitops</div><div class="line">  56 seconds - unit/scripting</div><div class="line">  128 seconds - unit/type/list-2</div><div class="line">  43 seconds - unit/memefficiency</div><div class="line">  135 seconds - integration/replication</div><div class="line">  79 seconds - unit/obuf-limits</div><div class="line">  148 seconds - integration/replication-3</div><div class="line">  75 seconds - unit/hyperloglog</div><div class="line">  162 seconds - integration/replication-4</div><div class="line">  104 seconds - unit/geo</div><div class="line">  182 seconds - integration/replication-psync</div><div class="line"></div><div class="line">\o/ All tests passed without errors!</div><div class="line"></div><div class="line">Cleanup: may take some time... OK</div></pre></td></tr></table></figure>
+<p>5)、sudo make install</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">localhost:redis-3.2.6 xingzhe$ sudo make install</div><div class="line">Password:</div><div class="line">cd src &amp;&amp; /Applications/Xcode.app/Contents/Developer/usr/bin/make install</div><div class="line"></div><div class="line">Hint: It&apos;s a good idea to run &apos;make test&apos; ;)</div><div class="line"></div><div class="line">    INSTALL install</div><div class="line">    INSTALL install</div><div class="line">    INSTALL install</div><div class="line">    INSTALL install</div><div class="line">    INSTALL install</div></pre></td></tr></table></figure>
+<p>至此，你已成功安装redis！</p>
+<p>####1.2 centos7 上安装redis</p>
+<p>1)、安装前，升级系统<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y update</div></pre></td></tr></table></figure></p>
+<p>2)、官网下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://download.redis.io/releases/redis-3.2.6.tar.gz</div></pre></td></tr></table></figure></p>
+<p>3)、解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -xvf redis-3.2.6.tar.gz redis-3.2.6</div></pre></td></tr></table></figure></p>
+<p>4)、进入解压后的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd redis-3.2.6</div></pre></td></tr></table></figure></p>
+<p>5)、运行runtest<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># ./runtest</div><div class="line"> You need tcl 8.5 or newer in order to run the Redis test</div></pre></td></tr></table></figure></p>
+<p>如果提示 需要安装tcl，执行6步，否则跳过。<br>6)、安装tcl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install tcl</div></pre></td></tr></table></figure></p>
+<p>7)、编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"># make</div><div class="line">cd src &amp;&amp; make all</div><div class="line">make[1]: 进入目录“/tdata/redis-3.2.6/src”</div><div class="line">rm -rf redis-server redis-sentinel redis-cli redis-benchmark redis-check-rdb redis-check-aof *.o *.gcda *.gcno *.gcov redis.info lcov-html</div><div class="line">(cd ../deps &amp;&amp; make distclean)</div><div class="line">make[2]: 进入目录“/tdata/redis-3.2.6/deps”</div><div class="line">(cd hiredis &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd linenoise &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd lua &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd geohash-int &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd jemalloc &amp;&amp; [ -f Makefile ] &amp;&amp; make distclean) &gt; /dev/null || true</div><div class="line">(rm -f .make-*)</div><div class="line">make[2]: 离开目录“/tdata/redis-3.2.6/deps”</div><div class="line">(rm -f .make-*)</div><div class="line">echo STD=-std=c99 -pedantic -DREDIS_STATIC=&apos;&apos; &gt;&gt; .make-settings</div><div class="line">echo WARN=-Wall -W &gt;&gt; .make-settings</div><div class="line">echo OPT=-O2 &gt;&gt; .make-settings</div><div class="line">echo MALLOC=jemalloc &gt;&gt; .make-settings</div><div class="line">echo CFLAGS= &gt;&gt; .make-settings</div><div class="line">echo LDFLAGS= &gt;&gt; .make-settings</div><div class="line">echo REDIS_CFLAGS= &gt;&gt; .make-settings</div><div class="line">echo REDIS_LDFLAGS= &gt;&gt; .make-settings</div><div class="line">echo PREV_FINAL_CFLAGS=-std=c99 -pedantic -DREDIS_STATIC=&apos;&apos; -Wall -W -O2 -g -ggdb   -I../deps/geohash-int -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -DUSE_JEMALLOC -I../deps/jemalloc/include &gt;&gt; .make-settings</div><div class="line">echo PREV_FINAL_LDFLAGS=  -g -ggdb -rdynamic &gt;&gt; .make-settings</div><div class="line">(cd ../deps &amp;&amp; make hiredis linenoise lua geohash-int jemalloc)</div><div class="line">make[2]: 进入目录“/tdata/redis-3.2.6/deps”</div><div class="line">(cd hiredis &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd linenoise &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd lua &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd geohash-int &amp;&amp; make clean) &gt; /dev/null || true</div><div class="line">(cd jemalloc &amp;&amp; [ -f Makefile ] &amp;&amp; make distclean) &gt; /dev/null || true</div><div class="line">(rm -f .make-*)</div><div class="line">(echo &quot;&quot; &gt; .make-cflags)</div><div class="line">(echo &quot;&quot; &gt; .make-ldflags)</div><div class="line">MAKE hiredis</div><div class="line">cd hiredis &amp;&amp; make static</div><div class="line">make[3]: 进入目录“/tdata/redis-3.2.6/deps/hiredis”</div><div class="line">gcc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb  net.c</div><div class="line">make[3]: gcc：命令未找到</div><div class="line">make[3]: *** [net.o] 错误 127</div><div class="line">make[3]: 离开目录“/tdata/redis-3.2.6/deps/hiredis”</div><div class="line">make[2]: *** [hiredis] 错误 2</div><div class="line">make[2]: 离开目录“/tdata/redis-3.2.6/deps”</div><div class="line">make[1]: [persist-settings] 错误 2 (忽略)</div><div class="line">    CC adlist.o</div><div class="line">/bin/sh: cc: 未找到命令</div><div class="line">make[1]: *** [adlist.o] 错误 127</div><div class="line">make[1]: 离开目录“/tdata/redis-3.2.6/src”</div><div class="line">make: *** [all] 错误 2</div></pre></td></tr></table></figure></p>
+<p>若出现上面错误，说明缺少编译环境，需要安装gcc。否则跳过8步。<br>如果出现如下错误,请看第9步，否则跳过。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">cd src &amp;&amp; make all</div><div class="line">make[1]: 进入目录“/tdata/redis-3.2.6/src”</div><div class="line">    CC adlist.o</div><div class="line">In file included from adlist.c:34:0:</div><div class="line">zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</div><div class="line"> #include &lt;jemalloc/jemalloc.h&gt;</div><div class="line">                               ^</div><div class="line">编译中断。</div><div class="line">make[1]: *** [adlist.o] 错误 1</div><div class="line">make[1]: 离开目录“/tdata/redis-3.2.6/src”</div><div class="line">make: *** [all] 错误 2</div></pre></td></tr></table></figure></p>
+<p>8)、安装gcc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install gcc</div></pre></td></tr></table></figure></p>
+<p>安装成功转到6步，执行make命令。<br>9)、zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录<br>在make 后面增加 MALLOC=libc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># make MALLOC=libc</div></pre></td></tr></table></figure></p>
+<p>10)、安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># make install</div></pre></td></tr></table></figure></p>
+<p>注：在编译时，出现“../deps/geohash-int/geohash.h:78:18: 附注：‘longitude’在此声明” 警告；还有一个变量未定义。不清楚是否会有影响。目前，安装后运行测试都正常。</p>
+<p><a href="https://github.com/uglide/RedisDesktopManager/releases/download/0.8.8/redis-desktop-manager-0.8.8.384.exe" target="_blank" rel="external">Redis Desktop Manager</a></p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>1)、启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server redis.conf</div></pre></td></tr></table></figure>
+<p> <a href="http://www.cnblogs.com/GoQC/p/5764201.html" target="_blank" rel="external">Redis 安装 启动 连接 配置 重启</a></p>
+<p>2)、测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ redis-cli</div><div class="line">127.0.0.1:6379&gt; set foo bar</div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; get foo</div><div class="line">&quot;bar&quot;</div></pre></td></tr></table></figure>
+<p>恭喜你，已经成功安装！</p>
+<h3 id="2、分布式配置"><a href="#2、分布式配置" class="headerlink" title="2、分布式配置"></a>2、分布式配置</h3><p>参考[1]:<a href="http://www.redis.cn/topics/cluster-tutorial.html" target="_blank" rel="external">Redis Cluster搭建方法简介</a></p>
+<p>参考[2]:<a href="http://blog.csdn.net/weiguolong0306/article/details/51586557" target="_blank" rel="external"> Centos7 搭建Redis3.2.0版本集群环境</a></p>
+<p>准备ruby环境,后续redis-trib.rb会用到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># yum install ruby</div><div class="line"># yum install rubygems</div><div class="line"># gem install redis</div></pre></td></tr></table></figure></p>
+<h4 id="搭建并使用Redis集群"><a href="#搭建并使用Redis集群" class="headerlink" title="搭建并使用Redis集群[]"></a>搭建并使用Redis集群[]</h4><p>1、准备redis.conf配置文件<br>redis.conf配置如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">port 7000</div><div class="line">cluster-enabled yes</div><div class="line">cluster-config-file nodes.conf</div><div class="line">cluster-node-timeout 5000</div><div class="line">appendonly yes</div></pre></td></tr></table></figure></p>
+<p>2、创建目录后分别启动<br>创建目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir cluster-test</div><div class="line">cd cluster-test</div><div class="line">mkdir 7000 7001 7002 7003 7004 7005</div></pre></td></tr></table></figure></p>
+<p>在文件夹 7000 至 7005 中， 各创建一个 redis.conf 文件,文件中的端口与文件加相同。<br>启动,因文件夹加多启动比较繁琐。可用写个简单的脚本执行,注意一定是在文件夹内执行命令。<br>vi runcluster.sh 将下面内容cp进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cd 7000/</div><div class="line">../redis-server ./redis.conf &amp;</div><div class="line">cd ../7001</div><div class="line">../redis-server ./redis.conf &amp;</div><div class="line">cd ../7002</div><div class="line">../redis-server ./redis.conf &amp;</div><div class="line">cd ../7003</div><div class="line">../redis-server ./redis.conf &amp;</div><div class="line">cd ../7004</div><div class="line">../redis-server ./redis.conf &amp;</div><div class="line">cd ../7005</div><div class="line">../redis-server ./redis.conf &amp;</div></pre></td></tr></table></figure></p>
+<p>nohup redis-server ./redis.conf &gt; /cluster-test/log/redis-7000.log 2&gt;&amp;1 &amp;</p>
+<p>chomd +X runcluster.sh //添加执行权限<br>然后,./runcluster.sh  运行。这样就全都启动了。</p>
+<p>3、搭建集群<br>redis-trib 位于 Redis 源码的 src 文件夹中,你要把它cp到cluster-test目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</div></pre></td></tr></table></figure>
+<p>注意:在执行时会出现”All nodes agree about slots configuration”提示,不能直接回车,一定输入yes再回车。<br>当出现下面的说明配置完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">12400:S 12 Jan 14:45:21.671 * Background AOF rewrite finished successfully</div><div class="line">12397:M 12 Jan 14:45:22.055 # Cluster state changed: ok</div><div class="line">12398:M 12 Jan 14:45:22.155 # Cluster state changed: ok</div><div class="line">12399:M 12 Jan 14:45:22.189 # Cluster state changed: ok</div></pre></td></tr></table></figure></p>
+<p>4、检验是否配置成功<br>./redis-trib.rb check :7000<br>你也可用通过客户端连接上测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">redis-cli -c -p 7000</div><div class="line">127.0.0.1:7000&gt; cluster nodes</div><div class="line">1577e1769a77367dd4a626b316f4191224f726c6 127.0.0.1:7005 slave 8da8517b0edd30f30104e091d782d40803c0723d 0 1484203764628 6 connected</div><div class="line">7436728328935447bccc1c1b54e6eab372b8c4e1 127.0.0.1:7000 myself,master - 0 0 1 connected 0-5460</div><div class="line">8da8517b0edd30f30104e091d782d40803c0723d 127.0.0.1:7002 master - 0 1484203766133 3 connected 10923-16383</div><div class="line">3a3e3c8407ee19f9f762c3a7496fc0d213ee452d 127.0.0.1:7001 master - 0 1484203765631 2 connected 5461-10922</div><div class="line">48302b26e73b33da61914a33d62865ba0e83f6cb 127.0.0.1:7003 slave 7436728328935447bccc1c1b54e6eab372b8c4e1 0 1484203764127 4 connected</div><div class="line">5b75f1ce4b70e3a780016d3a77daea7adde432ce 127.0.0.1:7004 slave 3a3e3c8407ee19f9f762c3a7496fc0d213ee452d 0 1484203765129 5 connected</div><div class="line">127.0.0.1:7000&gt; cluster info</div><div class="line">cluster_state:ok</div><div class="line">cluster_slots_assigned:16384</div><div class="line">cluster_slots_ok:16384</div><div class="line">cluster_slots_pfail:0</div><div class="line">cluster_slots_fail:0</div><div class="line">cluster_known_nodes:6</div><div class="line">cluster_size:3</div><div class="line">cluster_current_epoch:6</div><div class="line">cluster_my_epoch:1</div><div class="line">cluster_stats_messages_sent:1169</div><div class="line">cluster_stats_messages_received:1169</div><div class="line">127.0.0.1:7000&gt; set name hello</div><div class="line">-&gt; Redirected to slot [5798] located at 127.0.0.1:7001</div><div class="line">OK</div><div class="line"></div><div class="line">redis-cli -c -p 7003</div><div class="line">127.0.0.1:7003&gt; get name</div><div class="line">-&gt; Redirected to slot [5798] located at 127.0.0.1:7001</div><div class="line">&quot;hello&quot;</div></pre></td></tr></table></figure></p>
+<p>5、 <a href="http://blog.csdn.net/daiyudong2020/article/details/51674169" target="_blank" rel="external">redis集群设置密码</a><br>注意事项：<br>1.如果是使用redis-trib.rb工具构建集群，集群构建完成前不要配置密码，集群构建完毕再通过config set + config rewrite命令逐个机器设置密码<br>2.如果对集群设置密码，那么requirepass和masterauth都需要设置，否则发生主从切换时，就会遇到授权问题，可以模拟并观察日志<br>3.各个节点的密码都必须一致，否则Redirected就会失败<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">config set masterauth abc</div><div class="line">config set requirepass abc</div><div class="line">config rewrite</div></pre></td></tr></table></figure></p>
+<p>config set masterauth “simonzhang”<br>config set requirepass “simonzhang”<br>config rewrite</p>
+<p>密码方式访问：</p>
+<p>redis-cli -p 7000 -a abc   //abc is password</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#客户端关闭</div><div class="line">redis-cli -h 127.0.0.1 -p 6379 shutdown</div><div class="line">redis-cli -h 127.0.0.1 -p 6380 shutdown</div><div class="line">#启动</div><div class="line">redis-server redis6379.conf &amp;</div><div class="line">redis-server redis6380.conf &amp;</div></pre></td></tr></table></figure>
+<p>??? 主从切换<br><a href="http://www.2cto.com/database/201502/377061.html" target="_blank" rel="external"></a></p>
+<h3 id="3、搭建前哨sentinel"><a href="#3、搭建前哨sentinel" class="headerlink" title="3、搭建前哨sentinel"></a>3、搭建前哨sentinel</h3><p>配置<br>redis-sentinel ./sentinel001.conf &amp;<br>redis-sentinel ./sentinel002.conf &amp;<br>redis-sentinel ./sentinel003.conf &amp;</p>
+<p>注：sentinel.conf中要指定redis服务器的网络ip地址.不能为本机地址（127.0.0.1/localhost）。这是在单机部署时一定要注意的。</p>
+<p>在有sentinel的集群环境中报：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">DENIED Redis is running in protected mode because protected mode is enabled, no bind address was specified, no authentication password is requested to clients. In this mode connections are only accepted from the loopback interface. If you want to connect from external computers to Redis you may adopt one of the following solutions:</div><div class="line">1) Just disable protected mode sending the command &apos;CONFIG SET protected-mode no&apos; from the loopback interface by connecting to Redis from the same host the server is running, however MAKE SURE Redis is not publicly accessible from internet if you do so. Use CONFIG REWRITE to make this change permanent.</div><div class="line">2) Alternatively you can just disable the protected mode by editing the Redis configuration file, and setting the protected mode option to &apos;no&apos;, and then restarting the server.</div><div class="line">3) If you started the server manually just for testing, restart it with the &apos;--protected-mode no&apos; option.</div><div class="line">4) Setup a bind address or an authentication password.</div><div class="line"> NOTE: You only need to do one of the above things in order for the server to start accepting connections from the outside.</div></pre></td></tr></table></figure></p>
+<h3 id="4、主从配置"><a href="#4、主从配置" class="headerlink" title="4、主从配置"></a>4、主从配置</h3><p>master 部署在192.168.0.99上，配置文件为redis.conf;slave部署在192.168.0.100上，从master上复制一份配置文件命名为redis-slave.conf,如果你是单机部署需要修改ip和端口号。<br>再在redis-slav.conf配置文件中增加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slaveof 192.168.0.99 6379</div></pre></td></tr></table></figure></p>
+<h3 id="5、配置文件"><a href="#5、配置文件" class="headerlink" title="5、配置文件"></a>5、配置文件</h3><p><a href="http://blog.csdn.net/u012173245/article/details/52041882" target="_blank" rel="external">http://blog.csdn.net/u012173245/article/details/52041882</a><br><a href="http://yijiebuyi.com/blog/bc2b3d3e010bf87ba55267f95ab3aa71.html" target="_blank" rel="external">http://yijiebuyi.com/blog/bc2b3d3e010bf87ba55267f95ab3aa71.html</a><br><a href="https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf" target="_blank" rel="external">https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf</a></p>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#修改为守护模式</div><div class="line">daemonize yes</div><div class="line">#设置进程锁文件</div><div class="line">pidfile /usr/local/redis/redis.pid</div><div class="line">#端口</div><div class="line">port 6379</div><div class="line">#客户端超时时间</div><div class="line">timeout 300</div><div class="line">#日志级别</div><div class="line">loglevel debug</div><div class="line">#日志文件位置</div><div class="line">logfile /usr/local/redis/log-redis.log</div><div class="line">#设置数据库的数量，默认数据库为0，可以使用SELECT &lt;dbid&gt;命令在连接上指定数据库id</div><div class="line">databases 8</div><div class="line">##指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</div><div class="line">#save &lt;seconds&gt; &lt;changes&gt;</div><div class="line">#Redis默认配置文件中提供了三个条件：</div><div class="line">save 900 1</div><div class="line">save 300 10</div><div class="line">save 60 10000</div><div class="line">#指定存储至本地数据库时是否压缩数据，默认为yes，Redis采用LZF压缩，如果为了节省CPU时间，</div><div class="line">#可以关闭该#选项，但会导致数据库文件变的巨大</div><div class="line">rdbcompression yes</div><div class="line">#指定本地数据库文件名</div><div class="line">dbfilename dump.rdb</div><div class="line">#指定本地数据库路径</div><div class="line">dir /usr/local/redis/db/</div><div class="line">#指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能</div><div class="line">#会在断电时导致一段时间内的数据丢失。因为 redis本身同步数据文件是按上面save条件来同步的，所以有</div><div class="line">#的数据会在一段时间内只存在于内存中</div><div class="line">appendonly no</div><div class="line">#指定更新日志条件，共有3个可选值：</div><div class="line">#no：表示等操作系统进行数据缓存同步到磁盘（快）</div><div class="line">#always：表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）</div><div class="line">#everysec：表示每秒同步一次（折衷，默认值）</div><div class="line">appendfsync everysec</div></pre></td></tr></table></figure>
+<h3 id="6、文档"><a href="#6、文档" class="headerlink" title="6、文档"></a>6、文档</h3><ul>
+<li><a href="http://doc.redisfans.com/#" target="_blank" rel="external">Redis 命令参考</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/" data-id="ciy5kc2210000lss6fc11rq9u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/17/03.spring与Jedis整合使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          03. spring与jedis整合使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于spring jpa 多表关系查询时，自定义返回对象</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/18/wellcome/">wellcome</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/02.nginx_tomcat_redis/">02.nginx+tomcat+redis实现集群环境的session共享。</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/03.spring与Jedis整合使用/">03. spring与jedis整合使用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/01.redis3.2.6_安装及分布式配置/">01. Redis3.2.6 安装及分布式配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/">关于spring jpa 多表关系查询时，自定义返回对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 simon zhang<br>
+      Powered by <a href="http://petewell.cn" target="_blank">petewell</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/category" class="mobile-nav-link">分类</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

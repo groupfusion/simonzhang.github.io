@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>02.nginx+tomcat+redis实现集群环境的session共享。 | 秦风的Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="02.nginx+tomcat+redis实现集群环境的session共享。注：tomcat-redis-session-manager 仅对tomcat8.0.39以下版支持。8.5.9这个版本不支持，缺少LifecycleSupport 相关类。
+nginx tomcat 集群配置参考：
+Nginx+Tomcat7+Mencached负载均衡集群部署笔记
+Nginx-tomcat-redis—">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02.nginx+tomcat+redis实现集群环境的session共享。">
+<meta property="og:url" content="http://petewell.cn/2017/01/17/02.nginx_tomcat_redis/index.html">
+<meta property="og:site_name" content="秦风的Blog">
+<meta property="og:description" content="02.nginx+tomcat+redis实现集群环境的session共享。注：tomcat-redis-session-manager 仅对tomcat8.0.39以下版支持。8.5.9这个版本不支持，缺少LifecycleSupport 相关类。
+nginx tomcat 集群配置参考：
+Nginx+Tomcat7+Mencached负载均衡集群部署笔记
+Nginx-tomcat-redis—">
+<meta property="og:updated_time" content="2017-01-20T08:42:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="02.nginx+tomcat+redis实现集群环境的session共享。">
+<meta name="twitter:description" content="02.nginx+tomcat+redis实现集群环境的session共享。注：tomcat-redis-session-manager 仅对tomcat8.0.39以下版支持。8.5.9这个版本不支持，缺少LifecycleSupport 相关类。
+nginx tomcat 集群配置参考：
+Nginx+Tomcat7+Mencached负载均衡集群部署笔记
+Nginx-tomcat-redis—">
+  
+    <link rel="alternate" href="/atom.xml" title="秦风的Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">秦风的Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">生活、学习，点点滴滴，从现在开始吧…</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/category">分类</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://petewell.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-02.nginx_tomcat_redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/17/02.nginx_tomcat_redis/" class="article-date">
+  <time datetime="2017-01-17T09:47:57.000Z" itemprop="datePublished">2017-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      02.nginx+tomcat+redis实现集群环境的session共享。
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="02-nginx-tomcat-redis实现集群环境的session共享。"><a href="#02-nginx-tomcat-redis实现集群环境的session共享。" class="headerlink" title="02.nginx+tomcat+redis实现集群环境的session共享。"></a>02.nginx+tomcat+redis实现集群环境的session共享。</h2><p>注：tomcat-redis-session-manager 仅对tomcat8.0.39以下版支持。8.5.9这个版本不支持，缺少LifecycleSupport 相关类。</p>
+<h3 id="nginx-tomcat-集群配置"><a href="#nginx-tomcat-集群配置" class="headerlink" title="nginx tomcat 集群配置"></a>nginx tomcat 集群配置</h3><p>参考：</p>
+<p><a href="http://blog.csdn.net/zht666/article/details/38515147" target="_blank" rel="external">Nginx+Tomcat7+Mencached负载均衡集群部署笔记</a></p>
+<p><a href="http://www.cnblogs.com/chihirotan/p/5791401.html" target="_blank" rel="external">Nginx-tomcat-redis——负载均衡以及session共享</a></p>
+<p>nginx\tomcat 采用集群方式，部署在一台window机器上192.168.0.20。redis 部署在一台centos下，ip为192.168.0.21；</p>
+<p>配置步骤如下：<br>1、安装nginx及单机测试，这里就不多说了，不会的同学可以百度下，很多。<br>2、安装tomcat 从官网下载tomcat7。注：在同一机器上部署需要修改端口，否则可能因端口冲突无法启动；我的端口分别设置为8080，8081，8082<br>3、nginx集群配置<br>修改nginx安装目录下的conf/nginx.conf 文件。修改部分如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">http&#123;</div><div class="line">   #设定负载均衡的服务器列表，可以设置多个upstream，但mysvr名字要区分</div><div class="line">   upstream myClusterServer1 &#123;</div><div class="line">      #weigth参数表示权值，权值越高被分配到的几率越大</div><div class="line">      #本机上的Squid开启3128端口</div><div class="line">      server 127.0.0.1:8080  weight=5;</div><div class="line">      server 127.0.0.1:8081  weight=5;</div><div class="line">      server 127.0.0.1:8082  weight=5;</div><div class="line">   &#125;</div><div class="line">   server &#123;</div><div class="line">       ...</div><div class="line">       location / &#123;</div><div class="line">           root   html;</div><div class="line">           index  index.html index.htm index.jsp;</div><div class="line">           #请求转向mysvr 定义的服务器列表</div><div class="line">           proxy_pass    http://myClusterServer1;</div><div class="line">           proxy_redirect default;</div><div class="line">           #跟代理服务器连接的超时时间，必须留意这个time out时间不能超过75秒，当一台服务器当掉时，过10秒转发到另外一台服务器。</div><div class="line">       	proxy_connect_timeout 10;</div><div class="line">       &#125;</div><div class="line">       ...</div><div class="line">   &#125;</div><div class="line">   ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>4、启动3个tomcat和nginx。<br>5、测试，编写一个简单jsp进行测试。放到tomcat下，然后<a href="http://localhost/test.jsp" target="_blank" rel="external">http://localhost/test.jsp</a>访问,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=iso-8859-1&quot;/&gt;</div><div class="line">    &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;/&gt;&lt;!-- HTTP 1.0 --&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">   &lt;h1&gt;Session&lt;/h1&gt;</div><div class="line">   &lt;table style=&quot;text-align: left;&quot; border=&quot;0&quot;&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session Id&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getSession().hashCode()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session IP&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getServerName()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session port&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getServerPort()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;server&lt;/th&gt;</div><div class="line">       &lt;td&gt;this is Tomcat Server 8080&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">   &lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="redis实现session共享"><a href="#redis实现session共享" class="headerlink" title="redis实现session共享"></a>redis实现session共享</h3><p>参考：<a href="http://blog.csdn.net/chszs/article/details/42610365" target="_blank" rel="external">用Redis存储Tomcat集群的Session</a></p>
+<p>redis安装这里就不多说了。参见我的<a href="">redis3.2.6_安装及分布配置</a></p>
+<p>1、准备tomcat-redis-session-manager包</p>
+<p>注：tomcat-redis-session-manager仅支持tomcat8.0.39以下版本，并按网上提供的方法修改时没有问题的。对8.5以上版本依然没用。</p>
+<p>你要到<a href="https://github.com/jcoleman/tomcat-redis-session-manager" target="_blank" rel="external">tomcat-redis-session-manager</a>下载源码编译。</p>
+<p>在配置gradle时会遇到“No such property: sonatypeUsername错误”</p>
+<p>解决方法：<br>在项目根目录下创建gradle.properties文件，文件中添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sonatypeUsername=</div><div class="line">sonatypePassword=</div><div class="line">sonatypeRepo=</div></pre></td></tr></table></figure>
+<p>编译成功后将commons-pool2-2.4.2.jar、jedis-2.9.0.jar、tomcat-redis-session-manager-2.0.0.jar 放到tomcat的lib目录下。</p>
+<p>2、在tomcat context.xml 文件中增加先内容。</p>
+<p>单机redis缓存（master -slave模式）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--单点配置--&gt;</div><div class="line">&lt;Valve className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve&quot; /&gt;</div><div class="line">&lt;Manager className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionManager&quot;</div><div class="line">         host=&quot;192.168.100.194&quot;</div><div class="line">         port=&quot;6379&quot;</div><div class="line">         database=&quot;0&quot;</div><div class="line">         maxInactiveInterval=&quot;60&quot;</div><div class="line">         /&gt;</div></pre></td></tr></table></figure>
+<p>Sentinel 配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> &lt;!-- Sentinel 配置 --&gt;</div><div class="line"> &lt;Valve className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve&quot; /&gt;</div><div class="line"> &lt;Manager className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionManager&quot;</div><div class="line">   maxInactiveInterval=&quot;60&quot;</div><div class="line">sentinelMaster=&quot;mymaster&quot;</div><div class="line">   sentinels=&quot;192.168.0.194:26379,192.168.0.194:36379,192.168.0.194:46379&quot;/&gt;</div></pre></td></tr></table></figure>
+<p>3、编写测试jsp。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;</div><div class="line">    pageEncoding=&quot;UTF-8&quot;%&gt;</div><div class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</div><div class="line">&lt;title&gt;Insert title here&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;%=session.getId()%&gt;&lt;br&gt;</div><div class="line">    &lt;%</div><div class="line">        String msg = (String) session.getAttribute(&quot;msg&quot;);</div><div class="line">        if (null == msg) &#123;</div><div class="line">            session.setAttribute(&quot;msg&quot;, &quot;Hello!&quot;);</div><div class="line">        &#125; else &#123;</div><div class="line">            session.setAttribute(&quot;msg&quot;, msg + 0);</div><div class="line">        &#125;</div><div class="line">    %&gt;</div><div class="line">    &lt;%=session.getAttribute(&quot;msg&quot;)%&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>分别部署到tomcat下</p>
+<p>4、启动nginx和tomcat</p>
+<p>分别启动tomcat和nginx后，然后访问<a href="http://localhost/test.jsp" target="_blank" rel="external">http://localhost/test.jsp</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">B1ACBA61EEB15371A3896FCEA5FAF69D</div><div class="line">Hello!0000</div></pre></td></tr></table></figure>
+<p>若出现DENIED Redis is running in protected mode because protected mode is enabled问题<br>具体提示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">redis.clients.jedis.exceptions.JedisDataException: DENIED Redis is running in protected mode because protected mode is enabled, no bind address was specified, no authentication password is requested to clients. In this mode connections are only accepted from the loopback interface. If you want to connect from external computers to Redis you may adopt one of the following solutions:</div><div class="line">1) Just disable protected mode sending the command &apos;CONFIG SET protected-mode no&apos; from the loopback interface by connecting to Redis from the same host the server is running, however MAKE SURE Redis is not publicly accessible from internet if you do so. Use CONFIG REWRITE to make this change permanent.</div><div class="line">2) Alternatively you can just disable the protected mode by editing the Redis configuration file, and setting the protected mode option to &apos;no&apos;, and then restarting the server.</div><div class="line">3) If you started the server manually just for testing, restart it with the &apos;--protected-mode no&apos; option.</div><div class="line">4) Setup a bind address or an authentication password. NOTE: You only need to do one of the above things in order for the server to start accepting connections from the outside.</div></pre></td></tr></table></figure></p>
+<p>你可以根据你的实际情况做出处理。<br>我这里是临时测试，在启动时把protected-mode 设置为no<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># redis-server ./redis.conf --protected-mode no</div></pre></td></tr></table></figure></p>
+<p>如果生产环境建议绑定一个地址或通过密码访问。</p>
+<p>单机方式下上面的方式很容易解决。但集群方式存在一个很大的坑， one client（nginx+tomcat 集群） + one server（redis+sentinel集群）下。无论是关闭protected-mode 还是 bind address 和auth pass 都无效。</p>
+<p>redis集群方式配置失败！！！！</p>
+<p>参考：<br><a href="http://www.cnblogs.com/interdrp/p/4868740.html" target="_blank" rel="external">redis + Tomcat 8 的session共享解决</a></p>
+<p>分布式集群Session共享 简单多tomcat8+redis的session共享实现<br><a href="http://blog.csdn.net/jerome_s/article/details/52658946" target="_blank" rel="external">http://blog.csdn.net/jerome_s/article/details/52658946</a><br><a href="http://blog.csdn.net/chszs/article/details/42610365" target="_blank" rel="external">用Redis存储Tomcat集群的Session</a><br><a href="http://www.cnblogs.com/LiZhiW/p/4851631.html#_label2" target="_blank" rel="external">02.Redis主从集群的Sentinel配置</a><br><a href="http://debugo.com/redis-sentinel/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">Redis Sentinel配置小记</a><br><a href="http://www.cnblogs.com/LiZhiW/p/4851640.html" target="_blank" rel="external">sentinel.conf配置详解</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/17/02.nginx_tomcat_redis/" data-id="ciy5kc2270001lss6n1kdk7tk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/18/wellcome/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          wellcome
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/17/03.spring与Jedis整合使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">03. spring与jedis整合使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/分布式/" style="font-size: 20px;">分布式</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/18/wellcome/">wellcome</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/02.nginx_tomcat_redis/">02.nginx+tomcat+redis实现集群环境的session共享。</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/03.spring与Jedis整合使用/">03. spring与jedis整合使用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/01.redis3.2.6_安装及分布式配置/">01. Redis3.2.6 安装及分布式配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/">关于spring jpa 多表关系查询时，自定义返回对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 simon zhang<br>
+      Powered by <a href="http://petewell.cn" target="_blank">petewell</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/category" class="mobile-nav-link">分类</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
