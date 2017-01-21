@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>秦风的Blog</title>
+  <title>秦风 Blog</title>
   <subtitle>生活、学习，点点滴滴，从现在开始吧…</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -90,41 +90,11 @@
   </entry>
   
   <entry>
-    <title>03. spring与jedis整合使用</title>
-    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
-    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
-    <published>2017-01-17T01:47:57.000Z</published>
-    <updated>2017-01-20T08:44:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
-<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
-<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
-<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
-<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
-<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
-</ul>
-<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
-&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
-    
-    </summary>
-    
-    
-      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>01. Redis3.2.6 安装及分布式配置</title>
     <link href="http://petewell.cn/2017/01/17/01.redis3.2.6_%E5%AE%89%E8%A3%85%E5%8F%8A%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE/"/>
     <id>http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/</id>
     <published>2017-01-17T01:47:57.000Z</published>
-    <updated>2017-01-20T08:41:45.000Z</updated>
+    <updated>2017-01-20T08:41:44.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="01-Redis3-2-6-安装及分布式配置"><a href="#01-Redis3-2-6-安装及分布式配置" class="headerlink" title="01.Redis3.2.6 安装及分布式配置"></a>01.Redis3.2.6 安装及分布式配置</h2><p>参考<a href="http://blog.csdn.net/miyatang/article/details/47257209" target="_blank" rel="external">redis3.0.3 安装与配置</a></p>
 <h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><p>####1.1 mac 上安装redis</p>
@@ -197,11 +167,41 @@
   </entry>
   
   <entry>
+    <title>03. spring与jedis整合使用</title>
+    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
+    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
+    <published>2017-01-17T01:47:57.000Z</published>
+    <updated>2017-01-20T08:44:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
+<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
+<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
+<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
+<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
+</ul>
+<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
+&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
+    
+    </summary>
+    
+    
+      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关于spring jpa 多表关系查询时，自定义返回对象</title>
     <link href="http://petewell.cn/2017/01/16/%E5%85%B3%E4%BA%8Espring-jpa-%E5%A4%9A%E8%A1%A8%E5%85%B3%E7%B3%BB%E6%9F%A5%E8%AF%A2%E6%97%B6%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1/"/>
     <id>http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/</id>
     <published>2017-01-16T07:41:20.000Z</published>
-    <updated>2017-01-20T08:25:19.000Z</updated>
+    <updated>2017-01-20T08:25:18.000Z</updated>
     
     <content type="html"><![CDATA[<p>比如在获取用户资料时，我们不想把密码等重要信息全部带出。那时，我们就要用到jpa query 返回指定字段。</p>
 <p>我要在网上查找了下都是比较基础的单表查询。好了，如何写呢？</p>
@@ -231,7 +231,7 @@
     <link href="http://petewell.cn/2017/01/05/sonar-%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/"/>
     <id>http://petewell.cn/2017/01/05/sonar-配置服务默认路径问题/</id>
     <published>2017-01-05T08:38:48.000Z</published>
-    <updated>2017-01-20T08:34:54.000Z</updated>
+    <updated>2017-01-20T08:47:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>sonar 配置后台服务时，出现“Temp directory is not writable” 问题解决：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">WrapperSimpleApp: Encountered an error running main: java.lang.IllegalStateException: Temp directory is not writable: C:\Windows\system32\config\systemprofile\AppData\Local\Temp\</div><div class="line">java.lang.IllegalStateException: Temp directory is not writable: C:\Windows\system32\config\systemprofile\AppData\Local\Temp\</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableDir(MinimumViableSystem.java:60)</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableTempDir(MinimumViableSystem.java:52)</div><div class="line">at org.sonar.process.MinimumViableSystem.check(MinimumViableSystem.java:45)</div><div class="line">at org.sonar.application.App.main(App.java:108)</div><div class="line">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</div><div class="line">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)</div><div class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)</div><div class="line">at java.lang.reflect.Method.invoke(Method.java:597)</div><div class="line">at org.tanukisoftware.wrapper.WrapperSimpleApp.run(WrapperSimpleApp.java:240)</div><div class="line">at java.lang.Thread.run(Thread.java:619)</div><div class="line">Caused by: java.io.IOException: 系统找不到指定的路径。</div><div class="line">at java.io.WinNTFileSystem.createFileExclusively(Native Method)</div><div class="line">at java.io.File.checkAndCreate(File.java:1704)</div><div class="line">at java.io.File.createTempFile(File.java:1792)</div><div class="line">at org.sonar.process.MinimumViableSystem.checkWritableDir(MinimumViableSystem.java:57)</div><div class="line">... 9 more</div><div class="line">&amp;lt;-- Wrapper Stopped</div><div class="line">The SonarQube service was launched, but failed to start.</div></pre></td></tr></table></figure>
@@ -247,6 +247,8 @@
     
     </summary>
     
+    
+      <category term="开发工具" scheme="http://petewell.cn/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -340,7 +342,7 @@
     <link href="http://petewell.cn/2016/01/22/Jenkins%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%EF%BC%88Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89/"/>
     <id>http://petewell.cn/2016/01/22/Jenkins部署到远程（Linux服务器）/</id>
     <published>2016-01-22T05:51:22.000Z</published>
-    <updated>2017-01-20T08:33:53.000Z</updated>
+    <updated>2017-01-20T08:33:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>转载自：<a href="http://www.tuicool.com/articles/buEFfi7" target="_blank" rel="external">http://www.tuicool.com/articles/buEFfi7</a></p>
 <p>接着上次的说，上次只是实现了本地自动化部署，这种情况只是针对开发环境和部署环境在同一台机器时适用。不过，一般情况下，我们都会要把项目部署到远程Linux服务器上，所以这节的主要内容是：</p>
@@ -420,7 +422,7 @@ cd /app/programs/tomcat_test1/bin
     <link href="http://petewell.cn/2015/08/06/checkstyle%E6%A3%80%E6%9F%A5%E9%97%AE%E9%A2%98-ot-an-exception-%E2%80%93-expecting-%E2%80%98%E2%80%9D%E2%80%98-found-%E2%80%98%E2%80%98/"/>
     <id>http://petewell.cn/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/</id>
     <published>2015-08-06T10:23:01.000Z</published>
-    <updated>2017-01-20T08:11:01.000Z</updated>
+    <updated>2017-01-20T08:11:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>checkstyle检查问题</p>
 <p>ot an exception &#8211; expecting &#8216;&#8221;&#8216;, found &#8216;&lt;EOF&gt;&#8217;</p>
