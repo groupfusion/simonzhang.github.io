@@ -363,28 +363,27 @@
     <link href="http://petewell.cn/2016/01/22/Jenkins%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%EF%BC%88Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89/"/>
     <id>http://petewell.cn/2016/01/22/Jenkins部署到远程（Linux服务器）/</id>
     <published>2016-01-22T05:51:22.000Z</published>
-    <updated>2017-01-20T08:33:52.000Z</updated>
+    <updated>2017-04-01T02:33:40.000Z</updated>
     
-    <content type="html"><![CDATA[<p>转载自：<a href="http://www.tuicool.com/articles/buEFfi7" target="_blank" rel="external">http://www.tuicool.com/articles/buEFfi7</a></p>
-<p>接着上次的说，上次只是实现了本地自动化部署，这种情况只是针对开发环境和部署环境在同一台机器时适用。不过，一般情况下，我们都会要把项目部署到远程Linux服务器上，所以这节的主要内容是：</p>
-<p>1、部署开发环境下的Web项目到远程Linux服务器；</p>
+    <content type="html"><![CDATA[<p>参考：<a href="http://www.tuicool.com/articles/buEFfi7" target="_blank" rel="external">http://www.tuicool.com/articles/buEFfi7</a></p>
+<p>jenkins、ssh实现了远程自动化部署或者发布。一般情况下，我们都会要把项目部署到远程Linux服务器上，所以这节的主要内容是：</p>
+<p>1、部署（发布）开发环境下的Web项目到远程Linux服务器；</p>
 <p>2、实现自动备份；</p>
-<h4 id="准备环境："><a href="#准备环境：" class="headerlink" title="准备环境："></a>准备环境：</h4><p>本地开发，安装虚拟机，在虚拟机安装Linux服务器</p>
+<p>当然，发布程序要比部署要简单，不需要执行远程脚步。</p>
+<h4 id="准备环境："><a href="#准备环境：" class="headerlink" title="准备环境："></a>准备环境：</h4><p>jenkins环境，Linux服务器，linux安装tomcat。</p>
 <h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><p>1、安装插件，登录到Jenkins后台，选择“系统管理”&#8212;&gt;“管理插件”，在可选插件中，选择 <a href="http://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin" target="_blank" rel="external">Publish Over SSH</a> ，安装这个插件；</p>
 <p>2、安装完后，配置这个选项，在系统管理中找到，如下图：</p>
 <p>如果SSH是通过Key来进行验证的这里需要输入相关服务器的Key，要是通过用户名密码进行验证的话，SSH Key的输入栏可以全部置空。</p>
-<p>&nbsp;</p>
-<p><a href="http://image.lxway.com/upload/6/74/674c63a970af2ad41c161960683b4034.jpg" target="_blank" rel="external"><img src="http://image.lxway.com/upload/6/74/674c63a970af2ad41c161960683b4034_thumb.jpg" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件" title="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></a></p>
+<p>&nbsp;<br><img src="/images/674c63a970af2ad41c161960683b4034.jpg" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></p>
 <p>我是通过用户名和密码进行验证的，因此SSH Server要配置服务器的信息还有用户名和密码。</p>
-<p>&nbsp;</p>
-<p><a href="http://image.lxway.com/upload/2/ef/2ef457dfa5ec13528c2a5997bad5e4a1.jpg" target="_blank" rel="external"><img src="http://image.lxway.com/upload/2/ef/2ef457dfa5ec13528c2a5997bad5e4a1_thumb.jpg" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件" title="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></a></p>
+<p>&nbsp;<br><img src="/images/6E07EA50-6687-423E-9AD1-9436F1B68B07.png" alt="Jenkins(Hudson)实现远程部署Web项目 Publish Over SSH Plugin插件"></p>
 <p>这里只说下主要配置项，SSH Server Name，服务器名称，自己随便起个名字即可；Hostname，服务器的IP地址；Username，远程服务器的帐号，这里我用了root；Remote Directory，访问路径，“/”根路径即可。</p>
 <p>其他的选项参考， <a href="http://blog.csdn.net/wangmuming/article/details/22925895" target="_blank" rel="external">http://blog.csdn.net/wangmuming/article/details/22925895</a>。</p>
 <p>3、这次不用新建项目了，以上次建的项目为基础，做个拷贝，在此基础上修改就行，如图：</p>
-<p><img src="http://img2.tuicool.com/22QBfuI.png!web" alt=""></p>
+<p><img src="/images/22QBfuI.png" alt="Jenkins(Hudson)实现远程部署Web项目"></p>
 <p>4、上面的都不用动，只修改“构建后操作”，把上次部署war包的方式（Deploy war/ear to a container）删除，添加刚才安装插件后的（Send build artifacts over SSH），配置见图：</p>
-<p><img src="http://img1.tuicool.com/iUruy2.png!web" alt=""></p>
-<p>需要注意的地方：Remote directory，这个最好配置为绝对路径，主要是为了临时放置项目的地方，在第5步可以看到；</p>
+<p><img src="/images/0D8064F6-D0B0-481B-B095-57E49E19A8C6.png" alt="Jenkins(Hudson)实现远程部署Web项目"></p>
+<p>需要注意的地方：Remote directory，这个最好配置为绝对路径，主要是为了临时放置项目的地方，在第5步可以看到；如果只是发布程序，exec command 不需要设置；如果部署，需要设置远程deploy.sh 脚本位置。</p>
 <p>5、增加deploy.sh脚本，新下载的tomcat的bin目录没有该文件，自己新建一个即可，里面的内容如下，根据自己的实际情况进行调整，都是一些常见的shell命令：</p>
 <pre class="prettyprint bash"><span class="shebang">#!/bin/sh</span>
 export JAVA_HOME=/usr/java/jdk1.7.0_75
@@ -403,8 +402,8 @@ cd /app/programs/tomcat_test1/bin
     
     <summary type="html">
     
-      &lt;p&gt;转载自：&lt;a href=&quot;http://www.tuicool.com/articles/buEFfi7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.tuicool.com/articles/buEFfi7&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;接
+      &lt;p&gt;参考：&lt;a href=&quot;http://www.tuicool.com/articles/buEFfi7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.tuicool.com/articles/buEFfi7&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;je
     
     </summary>
     
