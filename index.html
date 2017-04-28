@@ -72,6 +72,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Redis-Can’t-save-in-background-fork-Cannot-allocate-memory" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/" class="article-date">
+  <time datetime="2017-04-28T04:30:40.000Z" itemprop="datePublished">2017-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/">Redis: Can’t save in background: fork: Cannot allocate memory</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Redis: “Can’t save in background: fork: Cannot allocate memory”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">redis.clients.jedis.exceptions.JedisDataException: MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. </div><div class="line">for details about the error.</div><div class="line">	redis.clients.jedis.Protocol.processError(Protocol.java:127)</div><div class="line">	redis.clients.jedis.Protocol.process(Protocol.java:161)</div><div class="line">	redis.clients.jedis.Protocol.read(Protocol.java:215)</div><div class="line">	</div><div class="line">	....</div></pre></td></tr></table></figure>
+<p>今天项目现场反馈说工单提交不了了，查看日志发现时 “Redis “MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk”的问题。这个错误信息是Redis客户端工具在保存数据时候抛出的异常信息。</p>
+<p>网上查了一下，很多人都是建议“config set stop-writes-on-bgsave-error no”。这样做其实是不好的，这仅仅是让程序忽略了这个异常，使得程序能够继续往下运行，但实际上数据还是会存储到硬盘失败！：</p>
+<p>百度了下 查到了<a href="http://blog.csdn.net/whycold/article/details/21388455" target="_blank" rel="external">有关linux下redis overcommit_memory的问题</a> ,提供了三种修改方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">有三种方式修改内核参数方式，但要有root权限：</div><div class="line"></div><div class="line">  （1）编辑/etc/sysctl.conf ，改vm.overcommit_memory=1，然后sysctl -p 使配置文件生效</div><div class="line"></div><div class="line">  （2）sysctl vm.overcommit_memory=1</div><div class="line"></div><div class="line">  （3）echo 1 &gt; /proc/sys/vm/overcommit_memory</div></pre></td></tr></table></figure>
+<p>修改后重启，总是提示 “Fatal error, can’t open config file”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">redis-server stop</div><div class="line">redis-server restart</div><div class="line">redis-cli -h 127.0.0.1 -p 6379 shutdown</div></pre></td></tr></table></figure>
+<p>上面删除方法都试过了，无法停止。无奈只有重启解决之。</p>
+<p>参考：<a href="https://pydelion.com/2013/05/27/redis-cant-save-in-background-fork-cannot-allocate-memory/" target="_blank" rel="external">Redis: “Can’t save in background: fork: Cannot allocate memory”</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/" data-id="cj21cx2hp000aixs68gygjgxd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-生活-眼保健操" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/14/生活-眼保健操/" class="article-date">
@@ -99,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/02/14/生活-眼保健操/" data-id="ciz41s5yu000ptkln8o9zxtjo" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/02/14/生活-眼保健操/" data-id="cj21cx2ie000rixs6f6ztexja" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
@@ -138,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="ciz41s5xv000ftklnayjimkvl" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="cj21cx2i1000iixs6o20y96h0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -208,7 +254,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/17/02.nginx_tomcat_redis/" data-id="ciz41s5w80002tklngprt9up3" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/17/02.nginx_tomcat_redis/" data-id="cj21cx2gr0002ixs61nm1ggjc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-03.spring与Jedis整合使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/17/03.spring与Jedis整合使用/" class="article-date">
+  <time datetime="2017-01-17T01:47:57.000Z" itemprop="datePublished">2017-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/17/03.spring与Jedis整合使用/">03. spring与jedis整合使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##03. spring与jedis整合使用</p>
+<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
+<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
+<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
+<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
+</ul>
+<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/" data-id="cj21cx2h20005ixs65wh816qa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -303,54 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/" data-id="ciz41s5vt0000tklnhcmb6nmu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-03.spring与Jedis整合使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/17/03.spring与Jedis整合使用/" class="article-date">
-  <time datetime="2017-01-17T01:47:57.000Z" itemprop="datePublished">2017-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/17/03.spring与Jedis整合使用/">03. spring与jedis整合使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##03. spring与jedis整合使用</p>
-<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
-<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
-<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
-<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
-<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
-</ul>
-<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/" data-id="ciz41s5wu0005tklnu46fjy1f" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/" data-id="cj21cx2gj0000ixs66bklhee5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -395,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" data-id="ciz41s5y4000jtklnmktvxvd8" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/16/关于spring-jpa-多表关系查询时，自定义返回对象/" data-id="cj21cx2i5000lixs6ehadlr1s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
@@ -438,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/05/sonar-配置服务默认路径问题/" data-id="ciz41s5xs000etklnxbkd3pcn" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/05/sonar-配置服务默认路径问题/" data-id="cj21cx2hz000fixs6z0a5c87x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
@@ -480,7 +526,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/05/关于arcgis-server性能优化/" data-id="ciz41s5y1000itklnuldyjsin" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/05/关于arcgis-server性能优化/" data-id="cj21cx2i3000jixs6cy6z5shp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIS/">GIS</a></li></ul>
@@ -532,56 +578,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" data-id="ciz41s5ya000ltklnth8sq40e" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" data-id="cj21cx2i8000nixs6ki75m9xf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/02/hello-world/" class="article-date">
-  <time datetime="2017-01-02T02:01:44.000Z" itemprop="datePublished">2017-01-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/02/hello-world/" data-id="ciz41s5xk000btklnsnxtai1j" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -624,7 +625,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
     </div>
   </div>
 
@@ -637,6 +638,10 @@
       <ul>
         
           <li>
+            <a href="/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/">Redis: Can’t save in background: fork: Cannot allocate memory</a>
+          </li>
+        
+          <li>
             <a href="/2017/02/14/生活-眼保健操/">爱眼护眼操</a>
           </li>
         
@@ -646,10 +651,6 @@
         
           <li>
             <a href="/2017/01/17/02.nginx_tomcat_redis/">02.nginx+tomcat+redis实现集群环境的session共享。</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/17/01.redis3.2.6_安装及分布式配置/">01. Redis3.2.6 安装及分布式配置</a>
           </li>
         
           <li>
