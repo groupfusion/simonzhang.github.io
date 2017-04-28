@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://petewell.cn/"/>
-  <updated>2017-04-28T04:46:32.000Z</updated>
+  <updated>2017-04-28T04:49:12.000Z</updated>
   <id>http://petewell.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://petewell.cn/2017/04/28/Redis-Can%E2%80%99t-save-in-background-fork-Cannot-allocate-memory/"/>
     <id>http://petewell.cn/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/</id>
     <published>2017-04-28T04:30:40.000Z</published>
-    <updated>2017-04-28T04:46:32.000Z</updated>
+    <updated>2017-04-28T04:49:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>Redis: “Can’t save in background: fork: Cannot allocate memory”</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">redis.clients.jedis.exceptions.JedisDataException: MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. </div><div class="line">for details about the error.</div><div class="line">	redis.clients.jedis.Protocol.processError(Protocol.java:127)</div><div class="line">	redis.clients.jedis.Protocol.process(Protocol.java:161)</div><div class="line">	redis.clients.jedis.Protocol.read(Protocol.java:215)</div><div class="line">	</div><div class="line">	....</div></pre></td></tr></table></figure>
@@ -41,6 +41,8 @@
     
     </summary>
     
+    
+      <category term="redis" scheme="http://petewell.cn/tags/redis/"/>
     
   </entry>
   
