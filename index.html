@@ -15,15 +15,13 @@
 <meta name="twitter:title" content="秦风 Blog">
 <meta name="twitter:description" content="随时记录，从现在开始吧…">
   
-    <link rel="alternate" href="/atom.xml" title="秦风 Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
+  
+
   
 
 </head>
@@ -48,18 +46,8 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/">首页</a>
-        
-          <a class="main-nav-link" href="/category">分类</a>
-        
-          <a class="main-nav-link" href="/archives">归档</a>
-        
-          <a class="main-nav-link" href="/about">关于</a>
-        
       </nav>
       <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
@@ -71,68 +59,6 @@
 </header>
       <div class="outer">
         <section id="main">
-  
-    <article id="post-mysql访问权限设置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/23/mysql访问权限设置/" class="article-date">
-  <time datetime="2017-06-23T01:47:57.000Z" itemprop="datePublished">2017-06-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
-<p>两种解决方法：</p>
-<ol>
-<li>改表法。</li>
-</ol>
-<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
-<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
-<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
-<p>mysql&gt;select host, user from user;</p>
-<p>mysql&gt;FLUSH RIVILEGES</p>
-<ol>
-<li>授权法。</li>
-</ol>
-<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/06/23/mysql访问权限设置/" data-id="cj49kszgy0003qls6bm7n3yxa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
   
     <article id="post-sublime_text3_快捷键" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -303,10 +229,72 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/06/23/sublime_text3_快捷键/" data-id="cj49kszif000cqls68anm2n83" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/06/23/sublime_text3_快捷键/" data-id="cj49mjyce000rvts663l78y4e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mysql访问权限设置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/23/mysql访问权限设置/" class="article-date">
+  <time datetime="2017-06-23T01:47:57.000Z" itemprop="datePublished">2017-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
+<p>两种解决方法：</p>
+<ol>
+<li>改表法。</li>
+</ol>
+<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
+<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
+<p>mysql&gt;select host, user from user;</p>
+<p>mysql&gt;FLUSH RIVILEGES</p>
+<ol>
+<li>授权法。</li>
+</ol>
+<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/06/23/mysql访问权限设置/" data-id="cj49mjyc1000jvts6pokv6hod" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li></ul>
 
     </footer>
   </div>
@@ -346,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/" data-id="cj49l5z6o0000t0s6xoh4ckl2" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/" data-id="cj49mjycj000yvts68eznlybx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li></ul>
@@ -465,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/05/17/quartz_cronexpression表达式/" data-id="cj49kszh00004qls6ppc0ntbm" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/17/quartz_cronexpression表达式/" data-id="cj49mjyc4000lvts6krwoqq6e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/quartz/">quartz</a></li></ul>
@@ -539,7 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/05/12/zookeeper 安装和配置/" data-id="cj49kszik000dqls6rh0y9f7f" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/12/zookeeper 安装和配置/" data-id="cj49mjyc7000nvts6vmajea9e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li></ul>
@@ -579,7 +567,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/05/12/java环境配置/" data-id="cj49kszgo0001qls6toua5u6m" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/12/java环境配置/" data-id="cj49mjybt000bvts6j835gj7m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li></ul>
@@ -653,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/" data-id="cj49kszge0000qls6fmp10v21" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/" data-id="cj49mjybr000avts6bch7lqkz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li></ul>
@@ -701,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/" data-id="cj21cx2hp000aixs68gygjgxd" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/" data-id="cj49mjybv000evts6or1of28q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
@@ -740,7 +728,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/02/14/生活-眼保健操/" data-id="cj21cx2ie000rixs6f6ztexja" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/02/14/生活-眼保健操/" data-id="cj49mjycs0015vts6d6vkeg62" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
@@ -779,7 +767,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="cj21cx2i1000iixs6o20y96h0" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/01/18/wellcome/" data-id="cj49mjycg000uvts65xl1mn2z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -796,73 +784,6 @@
   </nav>
 </section>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/hibernate-ORM/" style="font-size: 10px;">hibernate ORM</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/分布式-zookeeper/" style="font-size: 10px;">分布式 zookeeper</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具-java安装/" style="font-size: 10px;">工具 java安装</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/23/sublime_text3_快捷键/">sublime text3 快捷键</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/">关于hibernate could not resolve property_ provinceId of 错误</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/17/quartz_cronexpression表达式/">quartz CronExpression表达式</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/12/zookeeper 安装和配置/">zookeeper 安装和配置</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
       </div>
       <footer id="footer">
   
@@ -876,22 +797,11 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">首页</a>
-  
-    <a href="/category" class="mobile-nav-link">分类</a>
-  
-    <a href="/archives" class="mobile-nav-link">归档</a>
-  
-    <a href="/about" class="mobile-nav-link">关于</a>
-  
 </nav>
     
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 <script src="/js/script.js"></script>

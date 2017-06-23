@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://petewell.cn/"/>
-  <updated>2017-06-23T08:04:32.000Z</updated>
+  <updated>2017-06-23T08:03:24.000Z</updated>
   <id>http://petewell.cn/</id>
   
   <author>
@@ -14,55 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</title>
-    <link href="http://petewell.cn/2017/06/23/mysql%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://petewell.cn/2017/06/23/mysql访问权限设置/</id>
-    <published>2017-06-23T01:47:57.000Z</published>
-    <updated>2017-06-23T08:04:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
-<p>两种解决方法：</p>
-<ol>
-<li>改表法。</li>
-</ol>
-<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
-<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
-<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
-<p>mysql&gt;select host, user from user;</p>
-<p>mysql&gt;FLUSH RIVILEGES</p>
-<ol>
-<li>授权法。</li>
-</ol>
-<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”&lt;/p&gt;
-&lt;p&gt;两种解决方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;改表法。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;可能是你的帐号不允许从远程登陆，
-    
-    </summary>
-    
-    
-      <category term="mysql 数据库" scheme="http://petewell.cn/tags/mysql-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
   
   <entry>
     <title>sublime text3 快捷键</title>
@@ -225,6 +176,55 @@
     
     
       <category term="工具" scheme="http://petewell.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</title>
+    <link href="http://petewell.cn/2017/06/23/mysql%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://petewell.cn/2017/06/23/mysql访问权限设置/</id>
+    <published>2017-06-23T01:47:57.000Z</published>
+    <updated>2017-06-23T08:04:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
+<p>两种解决方法：</p>
+<ol>
+<li>改表法。</li>
+</ol>
+<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
+<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
+<p>mysql&gt;select host, user from user;</p>
+<p>mysql&gt;FLUSH RIVILEGES</p>
+<ol>
+<li>授权法。</li>
+</ol>
+<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”&lt;/p&gt;
+&lt;p&gt;两种解决方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;改表法。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可能是你的帐号不允许从远程登陆，
+    
+    </summary>
+    
+    
+      <category term="mysql 数据库" scheme="http://petewell.cn/tags/mysql-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
