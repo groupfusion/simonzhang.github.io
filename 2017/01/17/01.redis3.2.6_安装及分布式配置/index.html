@@ -23,7 +23,7 @@
 3）进入解压后的目录 cd redis－3.2.6
 4)、sudo make test 测试编译
 12345">
-<meta property="og:updated_time" content="2017-01-20T08:41:44.000Z">
+<meta property="og:updated_time" content="2017-05-10T13:37:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="01. Redis3.2.6 安装及分布式配置">
 <meta name="twitter:description" content="01.Redis3.2.6 安装及分布式配置参考redis3.0.3 安装与配置
@@ -164,6 +164,7 @@
 <p>在有sentinel的集群环境中报：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">DENIED Redis is running in protected mode because protected mode is enabled, no bind address was specified, no authentication password is requested to clients. In this mode connections are only accepted from the loopback interface. If you want to connect from external computers to Redis you may adopt one of the following solutions:</div><div class="line">1) Just disable protected mode sending the command &apos;CONFIG SET protected-mode no&apos; from the loopback interface by connecting to Redis from the same host the server is running, however MAKE SURE Redis is not publicly accessible from internet if you do so. Use CONFIG REWRITE to make this change permanent.</div><div class="line">2) Alternatively you can just disable the protected mode by editing the Redis configuration file, and setting the protected mode option to &apos;no&apos;, and then restarting the server.</div><div class="line">3) If you started the server manually just for testing, restart it with the &apos;--protected-mode no&apos; option.</div><div class="line">4) Setup a bind address or an authentication password.</div><div class="line"> NOTE: You only need to do one of the above things in order for the server to start accepting connections from the outside.</div></pre></td></tr></table></figure></p>
 <h3 id="4、主从配置"><a href="#4、主从配置" class="headerlink" title="4、主从配置"></a>4、主从配置</h3><p>master 部署在192.168.0.99上，配置文件为redis.conf;slave部署在192.168.0.100上，从master上复制一份配置文件命名为redis-slave.conf,如果你是单机部署需要修改ip和端口号。<br>再在redis-slav.conf配置文件中增加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slaveof 192.168.0.99 6379</div></pre></td></tr></table></figure></p>
 <h3 id="5、配置文件"><a href="#5、配置文件" class="headerlink" title="5、配置文件"></a>5、配置文件</h3><p><a href="http://blog.csdn.net/u012173245/article/details/52041882" target="_blank" rel="external">http://blog.csdn.net/u012173245/article/details/52041882</a><br><a href="http://yijiebuyi.com/blog/bc2b3d3e010bf87ba55267f95ab3aa71.html" target="_blank" rel="external">http://yijiebuyi.com/blog/bc2b3d3e010bf87ba55267f95ab3aa71.html</a><br><a href="https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf" target="_blank" rel="external">https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf</a></p>
+<h3 id="6、参考资料"><a href="#6、参考资料" class="headerlink" title="6、参考资料"></a>6、参考资料</h3><p><a href="http://www.cnblogs.com/LiZhiW/p/4851631.html#_label2" target="_blank" rel="external">http://www.cnblogs.com/LiZhiW/p/4851631.html#_label2</a><br><a href="http://blog.csdn.net/donggang1992/article/details/50981341" target="_blank" rel="external">http://blog.csdn.net/donggang1992/article/details/50981341</a><br><a href="http://blog.csdn.net/zyz511919766/article/details/42268219" target="_blank" rel="external">http://blog.csdn.net/zyz511919766/article/details/42268219</a><br><a href="http://www.cnblogs.com/stupidMartian/p/5904030.html" target="_blank" rel="external">http://www.cnblogs.com/stupidMartian/p/5904030.html</a></p>
 <h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#修改为守护模式</div><div class="line">daemonize yes</div><div class="line">#设置进程锁文件</div><div class="line">pidfile /usr/local/redis/redis.pid</div><div class="line">#端口</div><div class="line">port 6379</div><div class="line">#客户端超时时间</div><div class="line">timeout 300</div><div class="line">#日志级别</div><div class="line">loglevel debug</div><div class="line">#日志文件位置</div><div class="line">logfile /usr/local/redis/log-redis.log</div><div class="line">#设置数据库的数量，默认数据库为0，可以使用SELECT &lt;dbid&gt;命令在连接上指定数据库id</div><div class="line">databases 8</div><div class="line">##指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</div><div class="line">#save &lt;seconds&gt; &lt;changes&gt;</div><div class="line">#Redis默认配置文件中提供了三个条件：</div><div class="line">save 900 1</div><div class="line">save 300 10</div><div class="line">save 60 10000</div><div class="line">#指定存储至本地数据库时是否压缩数据，默认为yes，Redis采用LZF压缩，如果为了节省CPU时间，</div><div class="line">#可以关闭该#选项，但会导致数据库文件变的巨大</div><div class="line">rdbcompression yes</div><div class="line">#指定本地数据库文件名</div><div class="line">dbfilename dump.rdb</div><div class="line">#指定本地数据库路径</div><div class="line">dir /usr/local/redis/db/</div><div class="line">#指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能</div><div class="line">#会在断电时导致一段时间内的数据丢失。因为 redis本身同步数据文件是按上面save条件来同步的，所以有</div><div class="line">#的数据会在一段时间内只存在于内存中</div><div class="line">appendonly no</div><div class="line">#指定更新日志条件，共有3个可选值：</div><div class="line">#no：表示等操作系统进行数据缓存同步到磁盘（快）</div><div class="line">#always：表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）</div><div class="line">#everysec：表示每秒同步一次（折衷，默认值）</div><div class="line">appendfsync everysec</div></pre></td></tr></table></figure>
 <h3 id="6、文档"><a href="#6、文档" class="headerlink" title="6、文档"></a>6、文档</h3><ul>
 <li><a href="http://doc.redisfans.com/#" target="_blank" rel="external">Redis 命令参考</a></li>
@@ -214,7 +215,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/�ֲ�ʽ-zookeeper/">�ֲ�ʽ zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/����-java��װ/">���� java��װ</a></li></ul>
     </div>
   </div>
 
@@ -224,7 +225,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/�ֲ�ʽ-zookeeper/" style="font-size: 10px;">�ֲ�ʽ zookeeper</a> <a href="/tags/����-java��װ/" style="font-size: 10px;">���� java��װ</a>
     </div>
   </div>
 
@@ -233,7 +234,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
     </div>
   </div>
 
@@ -246,23 +247,23 @@
       <ul>
         
           <li>
-            <a href="/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/">Redis: Can’t save in background: fork: Cannot allocate memory</a>
+            <a href="/2017/06/23/sublime_text3_快捷键/">sublime text3 快捷键</a>
           </li>
         
           <li>
-            <a href="/2017/02/14/生活-眼保健操/">爱眼护眼操</a>
+            <a href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
           </li>
         
           <li>
-            <a href="/2017/01/18/wellcome/">wellcome</a>
+            <a href="/2017/05/17/quartz_cronexpression表达式/">quartz CronExpression表达式</a>
           </li>
         
           <li>
-            <a href="/2017/01/17/02.nginx_tomcat_redis/">02.nginx+tomcat+redis实现集群环境的session共享。</a>
+            <a href="/2017/05/12/zookeeper 安装和配置/">zookeeper ��װ������</a>
           </li>
         
           <li>
-            <a href="/2017/01/17/03.spring与Jedis整合使用/">03. spring与jedis整合使用</a>
+            <a href="/2017/05/12/java环境配置/">java��������</a>
           </li>
         
       </ul>

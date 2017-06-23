@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ORA-12518, TNS:listener could not hand off client connection 解决方案 | 秦风 Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##ORA-12518, TNS:listener could not hand off client connection 解决方案：
+问题：
+12345678910111213141516org.apache.cxf.interceptor.Fault: Hibernate operation: Cannot open connection; uncategorized SQLExceptio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ORA-12518, TNS:listener could not hand off client connection 解决方案">
+<meta property="og:url" content="http://petewell.cn/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/index.html">
+<meta property="og:site_name" content="秦风 Blog">
+<meta property="og:description" content="##ORA-12518, TNS:listener could not hand off client connection 解决方案：
+问题：
+12345678910111213141516org.apache.cxf.interceptor.Fault: Hibernate operation: Cannot open connection; uncategorized SQLExceptio">
+<meta property="og:updated_time" content="2017-06-23T08:06:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ORA-12518, TNS:listener could not hand off client connection 解决方案">
+<meta name="twitter:description" content="##ORA-12518, TNS:listener could not hand off client connection 解决方案：
+问题：
+12345678910111213141516org.apache.cxf.interceptor.Fault: Hibernate operation: Cannot open connection; uncategorized SQLExceptio">
+  
+    <link rel="alternate" href="/atom.xml" title="秦风 Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">秦风 Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">生活、学习，点点滴滴，从现在开始吧…</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/category">分类</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://petewell.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ORA-12518- TNS-listener could not hand off client connection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/" class="article-date">
+  <time datetime="2017-05-06T01:47:57.000Z" itemprop="datePublished">2017-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ORA-12518, TNS:listener could not hand off client connection 解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##ORA-12518, TNS:listener could not hand off client connection 解决方案：</p>
+<p>问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">org.apache.cxf.interceptor.Fault: Hibernate operation: Cannot open connection; uncategorized SQLException for SQL [???]; SQL state [66000]; error code [12518]; Listener refused the connection with the following error:</div><div class="line">ORA-12518, TNS:listener could not hand off client connection</div><div class="line"> ; nested exception is java.sql.SQLException: Listener refused the connection with the following error:</div><div class="line">ORA-12518, TNS:listener could not hand off client connection</div><div class="line"> </div><div class="line">        at org.apache.cxf.service.invoker.AbstractInvoker.createFault(AbstractInvoker.java:162)</div><div class="line">        at org.apache.cxf.jaxws.AbstractJAXWSMethodInvoker.createFault(AbstractJAXWSMethodInvoker.java:213)</div><div class="line">        at org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:128)</div><div class="line">        at org.apache.cxf.jaxws.AbstractJAXWSMethodInvoker.invoke(AbstractJAXWSMethodInvoker.java:178)</div><div class="line">        at org.apache.cxf.jaxws.JAXWSMethodInvoker.invoke(JAXWSMethodInvoker.java:64)</div><div class="line">        at org.apache.cxf.service.invoker.AbstractInvoker.invoke(AbstractInvoker.java:75)</div><div class="line">        at org.apache.cxf.interceptor.ServiceInvokerInterceptor$1.run(ServiceInvokerInterceptor.java:58)</div><div class="line">        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)</div><div class="line">        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)</div><div class="line">        at java.util.concurrent.FutureTask.run(FutureTask.java:138)</div><div class="line">        ......</div></pre></td></tr></table></figure>
+<p>数据库系统环境说明：<br>IBM 3850 M2 ／ x3950 M2<br>cpu 8<br>内存 16G<br>win2003 enterprise Edition （5.2.3790 sp2）<br>oracle 11g （11.1.0.6.0）版本</p>
+<p>分析问题：<br>遇到问题可以百度搜索，根据你的实际情况分析具体原因，并以最小的代价解决问题。<br>网上提到导致 ORA－12518错误的可能原因为：</p>
+<p>一是session值过小，或用尽。</p>
+<p>二是processes值设的过小，</p>
+<p>三是需要增加参数DISPATCHERS。</p>
+<p>首先获取上述中提及的参数值。</p>
+<p>1）、查看session会话数：</p>
+<p>select count(*) from v$session; –取得数据库目前的会话数。<br>select value from v$parameter where name = ‘sessions’; –取得会话数的上限。<br>select ＊ from v$session; –查看会话连接情况<br>查看当前process和sessions是否接近上限值。若接近，可以将其增大。</p>
+<p>当前session数   140<br>会话数的上限     170</p>
+<p>确认当前session数的连接情况，都有哪些连接。<br>其中101条为JDBC Thin Client   46条为plsqldev.exe连接。</p>
+<p>2）、使用plsql连接到oracle，查看process进程数：</p>
+<p>select count(*) from v$process; –取得数据库目前的进程数。<br>select value from v$parameter where name = ‘processes’;     –取得进程数的上限。 </p>
+<p>目前的进程数：147<br>进程数的上限 :150</p>
+<p>3）、采用专有连接方式<br>DISPATCHERS涉及到连接方式问题，这里默认采用专有连接方式。 关于连接方式参见 资料2</p>
+<p>第二，存在问题：<br>1、session 与process 配置不合理。<br>2、非生产应用程序占用session。<br>注：在访问量不大时，150左右是问题不大的。访问量大时需要增加。</p>
+<p>第三，处理方案：</p>
+<p>1、关闭非生产应用占用的连接，如：plsqldev。 关闭后，测试验证问题消失。</p>
+<p>2、调整process和session数。</p>
+<p>  1).调整这两个参数值大小。<br>   系统进程数process和系统会话数session之间存在一个关系：<br>   process数=session数*1.1+5<br>   我们在配置时参考该规律进行设定。</p>
+<p> a)  修改process值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter system set processes=1000 scope=spfile;   --将process值改为1000</div></pre></td></tr></table></figure>
+<p> b)  修改session值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter system set sessions=1105 scope=spfile;    --将sessions值改为1105</div></pre></td></tr></table></figure>
+<p>2). 备份pfile，重启oracle</p>
+<p>  a) 修改完成后，备份pfile</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create pfile from spfile;   --从spfile（运行时配置）创建pfile（系统配置）</div></pre></td></tr></table></figure>
+<p>c)  重启oracle</p>
+<p>重启的方法有很多种，可以重启oracle服务，或者重启数据库。Windows下可以直接重启服务。</p>
+<p>在修改process遇到问题 “ORA-32001: 已请求写入 SPFILE, 但是在启动时未指定 SPFILE” 参考资料3</p>
+<p>参考资料：</p>
+<p>1、问题处理方案<br>    <a href="http://blog.csdn.net/estelle_belle/article/details/40621245" target="_blank" rel="external">http://blog.csdn.net/estelle_belle/article/details/40621245</a><br>    <a href="http://www.cnblogs.com/chinhr/archive/2011/10/11/2207528.html" target="_blank" rel="external">http://www.cnblogs.com/chinhr/archive/2011/10/11/2207528.html</a><br>    <a href="http://blog.csdn.net/yanyaocrystal/article/details/52105846" target="_blank" rel="external">http://blog.csdn.net/yanyaocrystal/article/details/52105846</a></p>
+<p>2、关于连接方式<br>     <a href="http://www.2cto.com/database/201504/391158.html" target="_blank" rel="external">http://www.2cto.com/database/201504/391158.html</a><br>     <a href="http://blog.sina.com.cn/s/blog_6d6e54f70100z12o.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_6d6e54f70100z12o.html</a><br>3、ORA-32001: 已请求写入 SPFILE, 但是在启动时未指定 SPFILE<br>    <a href="http://blog.csdn.net/haiross/article/details/41696035" target="_blank" rel="external">http://blog.csdn.net/haiross/article/details/41696035</a></p>
+<p>4、关于spfile 与pfile<br>    <a href="http://www.cnblogs.com/kerrycode/p/3254154.html" target="_blank" rel="external">http://www.cnblogs.com/kerrycode/p/3254154.html</a><br>    <a href="http://blog.csdn.net/test_me/article/details/5678316" target="_blank" rel="external">http://blog.csdn.net/test_me/article/details/5678316</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/" data-id="cj49kszge0000qls6fmp10v21" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/12/java环境配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          java��������
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/28/Redis-Can’t-save-in-background-fork-Cannot-allocate-memory/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Redis: Can’t save in background: fork: Cannot allocate memory</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/�ֲ�ʽ-zookeeper/">�ֲ�ʽ zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/����-java��װ/">���� java��װ</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/�ֲ�ʽ-zookeeper/" style="font-size: 10px;">�ֲ�ʽ zookeeper</a> <a href="/tags/����-java��װ/" style="font-size: 10px;">���� java��װ</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/23/sublime_text3_快捷键/">sublime text3 快捷键</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/17/quartz_cronexpression表达式/">quartz CronExpression表达式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/12/zookeeper 安装和配置/">zookeeper ��װ������</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/12/java环境配置/">java��������</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 simon zhang<br>
+      Powered by <a href="http://petewell.cn" target="_blank">petewell</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/category" class="mobile-nav-link">分类</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
