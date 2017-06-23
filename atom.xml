@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://petewell.cn/"/>
-  <updated>2017-06-23T08:03:24.000Z</updated>
+  <updated>2017-06-23T08:04:32.000Z</updated>
   <id>http://petewell.cn/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</title>
+    <link href="http://petewell.cn/2017/06/23/mysql%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://petewell.cn/2017/06/23/mysql访问权限设置/</id>
+    <published>2017-06-23T01:47:57.000Z</published>
+    <updated>2017-06-23T08:04:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
+<p>两种解决方法：</p>
+<ol>
+<li>改表法。</li>
+</ol>
+<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
+<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
+<p>mysql&gt;select host, user from user;</p>
+<p>mysql&gt;FLUSH RIVILEGES</p>
+<ol>
+<li>授权法。</li>
+</ol>
+<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”&lt;/p&gt;
+&lt;p&gt;两种解决方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;改表法。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可能是你的帐号不允许从远程登陆，
+    
+    </summary>
+    
+    
+      <category term="mysql 数据库" scheme="http://petewell.cn/tags/mysql-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>sublime text3 快捷键</title>
@@ -180,51 +229,27 @@
   </entry>
   
   <entry>
-    <title>Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</title>
-    <link href="http://petewell.cn/2017/06/23/mysql%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://petewell.cn/2017/06/23/mysql访问权限设置/</id>
-    <published>2017-06-23T01:47:57.000Z</published>
-    <updated>2017-06-23T08:04:32.000Z</updated>
+    <title>关于hibernate could not resolve property_ provinceId of 错误</title>
+    <link href="http://petewell.cn/2017/05/27/%E5%85%B3%E4%BA%8Ehibernate_could_not_resolve_property_provinceid_of_%E9%94%99%E8%AF%AF/"/>
+    <id>http://petewell.cn/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/</id>
+    <published>2017-05-27T02:47:57.000Z</published>
+    <updated>2017-06-23T08:19:36.000Z</updated>
     
-    <content type="html"><![CDATA[<p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
-<p>两种解决方法：</p>
-<ol>
-<li>改表法。</li>
-</ol>
-<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
-<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
-<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
-<p>mysql&gt;select host, user from user;</p>
-<p>mysql&gt;FLUSH RIVILEGES</p>
-<ol>
-<li>授权法。</li>
-</ol>
-<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+    <content type="html"><![CDATA[<h2 id="关于hibernate-could-not-resolve-property-：-provinceId-of-错误"><a href="#关于hibernate-could-not-resolve-property-：-provinceId-of-错误" class="headerlink" title="关于hibernate could not resolve property ： provinceId of 错误"></a>关于hibernate could not resolve property ： provinceId of 错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.hibernate.QueryException: could not resolve property: provinceId of: com.petewell.assess.hb.model.HBExameResult</div></pre></td></tr></table></figure>
+<p>这个错误是说，在ExameResult 中没有找到proviceId属性，通常情况下我们在ExameResult中添加相应的属性就可以了。<br>但此次报的错误没有你想象的那么简单，首先我的provinceId属性已经在BaseExameResult中定义。定义的关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//////////////////////</div><div class="line">//  BaseExameResult //     -----&gt; BaseExameResult.hbm.xml</div><div class="line">//////////////////////</div><div class="line">			∆</div><div class="line">			|			</div><div class="line">//////////////////////</div><div class="line">//    HBExameResult   //     -----&gt; ExameResult.hbm.xml</div><div class="line">//////////////////////</div></pre></td></tr></table></figure>
+<p>在上面的这种情况下，hibernate查找映射关系时，会直接查找子类而不会找父类。那么我们这样实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">							////////////////////////////</div><div class="line">							//  BaseExameResult       //     -----&gt; BaseExameResult.hbm.xml</div><div class="line">							////////////////////////////</div><div class="line">								∆                   ∆               </div><div class="line">								|  	                |</div><div class="line">						///////////////////     ///////////////////////</div><div class="line">HBExameResult.hbm.xml&lt;-// HBExameResult //     ///  CMExameResult   //--&gt; CMExameResult.hbm.xml</div><div class="line">						///////////////////     //////////////////////</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”&lt;/p&gt;
-&lt;p&gt;两种解决方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;改表法。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;可能是你的帐号不允许从远程登陆，
+      &lt;h2 id=&quot;关于hibernate-could-not-resolve-property-：-provinceId-of-错误&quot;&gt;&lt;a href=&quot;#关于hibernate-could-not-resolve-property-：-provinceId-of-错误&quot; clas
     
     </summary>
     
     
-      <category term="mysql 数据库" scheme="http://petewell.cn/tags/mysql-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="hibernate ORM" scheme="http://petewell.cn/tags/hibernate-ORM/"/>
     
   </entry>
   
@@ -594,36 +619,6 @@
   </entry>
   
   <entry>
-    <title>03. spring与jedis整合使用</title>
-    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
-    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
-    <published>2017-01-17T01:47:57.000Z</published>
-    <updated>2017-01-20T08:44:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
-<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
-<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
-<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
-<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
-<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
-</ul>
-<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
-&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
-    
-    </summary>
-    
-    
-      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>01. Redis3.2.6 安装及分布式配置</title>
     <link href="http://petewell.cn/2017/01/17/01.redis3.2.6_%E5%AE%89%E8%A3%85%E5%8F%8A%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE/"/>
     <id>http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/</id>
@@ -693,6 +688,36 @@
     <summary type="html">
     
       &lt;h2 id=&quot;01-Redis3-2-6-安装及分布式配置&quot;&gt;&lt;a href=&quot;#01-Redis3-2-6-安装及分布式配置&quot; class=&quot;headerlink&quot; title=&quot;01.Redis3.2.6 安装及分布式配置&quot;&gt;&lt;/a&gt;01.Redis3.2.6 安装及分布式
+    
+    </summary>
+    
+    
+      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>03. spring与jedis整合使用</title>
+    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
+    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
+    <published>2017-01-17T01:47:57.000Z</published>
+    <updated>2017-01-20T08:44:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
+<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
+<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
+<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
+<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
+</ul>
+<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
+&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
     
     </summary>
     
@@ -918,37 +943,6 @@ cd /app/programs/tomcat_test1/bin
     
     
       <category term="数据库" scheme="http://petewell.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>checkstyle检查问题 ot an exception – expecting ‘”‘, found ‘‘</title>
-    <link href="http://petewell.cn/2015/08/06/checkstyle%E6%A3%80%E6%9F%A5%E9%97%AE%E9%A2%98-ot-an-exception-%E2%80%93-expecting-%E2%80%98%E2%80%9D%E2%80%98-found-%E2%80%98%E2%80%98/"/>
-    <id>http://petewell.cn/2015/08/06/checkstyle检查问题-ot-an-exception-–-expecting-‘”‘-found-‘‘/</id>
-    <published>2015-08-06T10:23:01.000Z</published>
-    <updated>2017-01-20T08:11:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>checkstyle检查问题</p>
-<p>ot an exception &#8211; expecting &#8216;&#8221;&#8216;, found &#8216;&lt;EOF&gt;&#8217;</p>
-<p>解决办法：</p>
-<p>在配置文件的根节点上增加编码的配置。</p>
-<p>&lt;module name=&#8221;Checker&#8221;&gt;</p>
-<p>&lt;property name=&#8221;severity&#8221; value=&#8221;warning&#8221;/&gt;</p>
-<p>&lt;property name=&#8221;charset&#8221; value=&#8221;UTF-8&#8243;/&gt; &lt;!&#8211;新增&#8211;&gt;</p>
-<p><a href="http://www.cnblogs.com/bnbqian/p/3451777.html" target="_blank" rel="external">http://www.cnblogs.com/bnbqian/p/3451777.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;checkstyle检查问题&lt;/p&gt;
-&lt;p&gt;ot an exception &amp;#8211; expecting &amp;#8216;&amp;#8221;&amp;#8216;, found &amp;#8216;&amp;lt;EOF&amp;gt;&amp;#8217;&lt;/p&gt;
-&lt;p&gt;解决办法：&lt;/p&gt;
-&lt;p&gt;在配置文件的
-    
-    </summary>
-    
-    
-      <category term="开发工具" scheme="http://petewell.cn/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   

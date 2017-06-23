@@ -72,6 +72,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql访问权限设置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/23/mysql访问权限设置/" class="article-date">
+  <time datetime="2017-06-23T01:47:57.000Z" itemprop="datePublished">2017-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
+<p>两种解决方法：</p>
+<ol>
+<li>改表法。</li>
+</ol>
+<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
+<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
+<p>mysql&gt;select host, user from user;</p>
+<p>mysql&gt;FLUSH RIVILEGES</p>
+<ol>
+<li>授权法。</li>
+</ol>
+<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
+<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
+<p>FLUSH   PRIVILEGES;</p>
+<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2017/06/23/mysql访问权限设置/" data-id="cj49kszgy0003qls6bm7n3yxa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sublime_text3_快捷键" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/23/sublime_text3_快捷键/" class="article-date">
@@ -253,10 +315,10 @@
 
 
   
-    <article id="post-mysql访问权限设置" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-关于hibernate_could_not_resolve_property_provinceid_of_错误" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/06/23/mysql访问权限设置/" class="article-date">
-  <time datetime="2017-06-23T01:47:57.000Z" itemprop="datePublished">2017-06-23</time>
+    <a href="/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/" class="article-date">
+  <time datetime="2017-05-27T02:47:57.000Z" itemprop="datePublished">2017-05-27</time>
 </a>
     
   </div>
@@ -267,7 +329,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+      <a class="article-title" href="/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/">关于hibernate could not resolve property_ provinceId of 错误</a>
     </h1>
   
 
@@ -275,38 +337,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>＃报错:”Host ‘192.168.＊.＊’ is not allowed to connect to this MariaDB server”</p>
-<p>两种解决方法：</p>
-<ol>
-<li>改表法。</li>
-</ol>
-<p>可能是你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%”, 使得可以在远程访问到mysql。</p>
-<p>mysql -u root -pvmwaremysql&gt;use mysql;</p>
-<p>mysql&gt;update user set host = ‘%’ where user = ‘root’;</p>
-<p>mysql&gt;select host, user from user;</p>
-<p>mysql&gt;FLUSH RIVILEGES</p>
-<ol>
-<li>授权法。</li>
-</ol>
-<p>例如，你想myuser使用mypassword从 <code>任何主机</code> 连接到mysql服务器的话。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从ip为<code>192.168.1.3</code>的主机连接到mysql服务器的dk数据库，并使用mypassword作为密码</p>
-<p>GRANT ALL PRIVILEGES ON dk.* TO ‘myuser’@’192.168.1.3’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;</p>
-<p>FLUSH   PRIVILEGES;</p>
-<p>如果你想允许用户myuser从<code>局域网中某个ip</code>的主机连接到mysql服务器的数据库，并使用mypassword作为密码；你要使用%通配符比如你有192.168.0.<em> 和 192.168.1.</em> 两个网段,要两个网段都可以访问你要’192.168.%’， 只要一个可以访问可以向下面例子这样。</p>
-<p>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘myuser’@’192.168.1.%’ IDENTIFIED BY ‘mypassword’ WITH GRANT OPTION;<br>FLUSH   PRIVILEGES;</p>
+        <h2 id="关于hibernate-could-not-resolve-property-：-provinceId-of-错误"><a href="#关于hibernate-could-not-resolve-property-：-provinceId-of-错误" class="headerlink" title="关于hibernate could not resolve property ： provinceId of 错误"></a>关于hibernate could not resolve property ： provinceId of 错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.hibernate.QueryException: could not resolve property: provinceId of: com.petewell.assess.hb.model.HBExameResult</div></pre></td></tr></table></figure>
+<p>这个错误是说，在ExameResult 中没有找到proviceId属性，通常情况下我们在ExameResult中添加相应的属性就可以了。<br>但此次报的错误没有你想象的那么简单，首先我的provinceId属性已经在BaseExameResult中定义。定义的关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//////////////////////</div><div class="line">//  BaseExameResult //     -----&gt; BaseExameResult.hbm.xml</div><div class="line">//////////////////////</div><div class="line">			∆</div><div class="line">			|			</div><div class="line">//////////////////////</div><div class="line">//    HBExameResult   //     -----&gt; ExameResult.hbm.xml</div><div class="line">//////////////////////</div></pre></td></tr></table></figure>
+<p>在上面的这种情况下，hibernate查找映射关系时，会直接查找子类而不会找父类。那么我们这样实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">							////////////////////////////</div><div class="line">							//  BaseExameResult       //     -----&gt; BaseExameResult.hbm.xml</div><div class="line">							////////////////////////////</div><div class="line">								∆                   ∆               </div><div class="line">								|  	                |</div><div class="line">						///////////////////     ///////////////////////</div><div class="line">HBExameResult.hbm.xml&lt;-// HBExameResult //     ///  CMExameResult   //--&gt; CMExameResult.hbm.xml</div><div class="line">						///////////////////     //////////////////////</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/06/23/mysql访问权限设置/" data-id="cj49kszgy0003qls6bm7n3yxa" class="article-share-link">Share</a>
+      <a data-url="http://petewell.cn/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/" data-id="cj49l5z6o0000t0s6xoh4ckl2" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li></ul>
 
     </footer>
   </div>
@@ -746,78 +789,6 @@
 
 
   
-    <article id="post-02.nginx_tomcat_redis" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/17/02.nginx_tomcat_redis/" class="article-date">
-  <time datetime="2017-01-17T09:47:57.000Z" itemprop="datePublished">2017-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/17/02.nginx_tomcat_redis/">02.nginx+tomcat+redis实现集群环境的session共享。</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="02-nginx-tomcat-redis实现集群环境的session共享。"><a href="#02-nginx-tomcat-redis实现集群环境的session共享。" class="headerlink" title="02.nginx+tomcat+redis实现集群环境的session共享。"></a>02.nginx+tomcat+redis实现集群环境的session共享。</h2><p>注：tomcat-redis-session-manager 仅对tomcat8.0.39以下版支持。8.5.9这个版本不支持，缺少LifecycleSupport 相关类。</p>
-<h3 id="nginx-tomcat-集群配置"><a href="#nginx-tomcat-集群配置" class="headerlink" title="nginx tomcat 集群配置"></a>nginx tomcat 集群配置</h3><p>参考：</p>
-<p><a href="http://blog.csdn.net/zht666/article/details/38515147" target="_blank" rel="external">Nginx+Tomcat7+Mencached负载均衡集群部署笔记</a></p>
-<p><a href="http://www.cnblogs.com/chihirotan/p/5791401.html" target="_blank" rel="external">Nginx-tomcat-redis——负载均衡以及session共享</a></p>
-<p>nginx\tomcat 采用集群方式，部署在一台window机器上192.168.0.20。redis 部署在一台centos下，ip为192.168.0.21；</p>
-<p>配置步骤如下：<br>1、安装nginx及单机测试，这里就不多说了，不会的同学可以百度下，很多。<br>2、安装tomcat 从官网下载tomcat7。注：在同一机器上部署需要修改端口，否则可能因端口冲突无法启动；我的端口分别设置为8080，8081，8082<br>3、nginx集群配置<br>修改nginx安装目录下的conf/nginx.conf 文件。修改部分如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">http&#123;</div><div class="line">   #设定负载均衡的服务器列表，可以设置多个upstream，但mysvr名字要区分</div><div class="line">   upstream myClusterServer1 &#123;</div><div class="line">      #weigth参数表示权值，权值越高被分配到的几率越大</div><div class="line">      #本机上的Squid开启3128端口</div><div class="line">      server 127.0.0.1:8080  weight=5;</div><div class="line">      server 127.0.0.1:8081  weight=5;</div><div class="line">      server 127.0.0.1:8082  weight=5;</div><div class="line">   &#125;</div><div class="line">   server &#123;</div><div class="line">       ...</div><div class="line">       location / &#123;</div><div class="line">           root   html;</div><div class="line">           index  index.html index.htm index.jsp;</div><div class="line">           #请求转向mysvr 定义的服务器列表</div><div class="line">           proxy_pass    http://myClusterServer1;</div><div class="line">           proxy_redirect default;</div><div class="line">           #跟代理服务器连接的超时时间，必须留意这个time out时间不能超过75秒，当一台服务器当掉时，过10秒转发到另外一台服务器。</div><div class="line">       	proxy_connect_timeout 10;</div><div class="line">       &#125;</div><div class="line">       ...</div><div class="line">   &#125;</div><div class="line">   ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>4、启动3个tomcat和nginx。<br>5、测试，编写一个简单jsp进行测试。放到tomcat下，然后<a href="http://localhost/test.jsp" target="_blank" rel="external">http://localhost/test.jsp</a>访问,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=iso-8859-1&quot;/&gt;</div><div class="line">    &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;/&gt;&lt;!-- HTTP 1.0 --&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">   &lt;h1&gt;Session&lt;/h1&gt;</div><div class="line">   &lt;table style=&quot;text-align: left;&quot; border=&quot;0&quot;&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session Id&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getSession().hashCode()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session IP&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getServerName()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;Session port&lt;/th&gt;</div><div class="line">       &lt;td&gt;&lt;%=request.getServerPort()%&gt;&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">     &lt;tr&gt;</div><div class="line">       &lt;th&gt;server&lt;/th&gt;</div><div class="line">       &lt;td&gt;this is Tomcat Server 8080&lt;/td&gt;</div><div class="line">     &lt;/tr&gt;</div><div class="line">   &lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="redis实现session共享"><a href="#redis实现session共享" class="headerlink" title="redis实现session共享"></a>redis实现session共享</h3><p>参考：<a href="http://blog.csdn.net/chszs/article/details/42610365" target="_blank" rel="external">用Redis存储Tomcat集群的Session</a></p>
-<p>redis安装这里就不多说了。参见我的<a href="">redis3.2.6_安装及分布配置</a></p>
-<p>1、准备tomcat-redis-session-manager包</p>
-<p>注：tomcat-redis-session-manager仅支持tomcat8.0.39以下版本，并按网上提供的方法修改时没有问题的。对8.5以上版本依然没用。</p>
-<p>你要到<a href="https://github.com/jcoleman/tomcat-redis-session-manager" target="_blank" rel="external">tomcat-redis-session-manager</a>下载源码编译。</p>
-<p>在配置gradle时会遇到“No such property: sonatypeUsername错误”</p>
-<p>解决方法：<br>在项目根目录下创建gradle.properties文件，文件中添加如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sonatypeUsername=</div><div class="line">sonatypePassword=</div><div class="line">sonatypeRepo=</div></pre></td></tr></table></figure>
-<p>编译成功后将commons-pool2-2.4.2.jar、jedis-2.9.0.jar、tomcat-redis-session-manager-2.0.0.jar 放到tomcat的lib目录下。</p>
-<p>2、在tomcat context.xml 文件中增加先内容。</p>
-<p>单机redis缓存（master -slave模式）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--单点配置--&gt;</div><div class="line">&lt;Valve className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve&quot; /&gt;</div><div class="line">&lt;Manager className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionManager&quot;</div><div class="line">         host=&quot;192.168.100.194&quot;</div><div class="line">         port=&quot;6379&quot;</div><div class="line">         database=&quot;0&quot;</div><div class="line">         maxInactiveInterval=&quot;60&quot;</div><div class="line">         /&gt;</div></pre></td></tr></table></figure>
-<p>Sentinel 配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> &lt;!-- Sentinel 配置 --&gt;</div><div class="line"> &lt;Valve className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve&quot; /&gt;</div><div class="line"> &lt;Manager className=&quot;com.orangefunction.tomcat.redissessions.RedisSessionManager&quot;</div><div class="line">   maxInactiveInterval=&quot;60&quot;</div><div class="line">sentinelMaster=&quot;mymaster&quot;</div><div class="line">   sentinels=&quot;192.168.0.194:26379,192.168.0.194:36379,192.168.0.194:46379&quot;/&gt;</div></pre></td></tr></table></figure>
-<p>3、编写测试jsp。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;</div><div class="line">    pageEncoding=&quot;UTF-8&quot;%&gt;</div><div class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</div><div class="line">&lt;title&gt;Insert title here&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;%=session.getId()%&gt;&lt;br&gt;</div><div class="line">    &lt;%</div><div class="line">        String msg = (String) session.getAttribute(&quot;msg&quot;);</div><div class="line">        if (null == msg) &#123;</div><div class="line">            session.setAttribute(&quot;msg&quot;, &quot;Hello!&quot;);</div><div class="line">        &#125; else &#123;</div><div class="line">            session.setAttribute(&quot;msg&quot;, msg + 0);</div><div class="line">        &#125;</div><div class="line">    %&gt;</div><div class="line">    &lt;%=session.getAttribute(&quot;msg&quot;)%&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p>分别部署到tomcat下</p>
-<p>4、启动nginx和tomcat</p>
-<p>分别启动tomcat和nginx后，然后访问<a href="http://localhost/test.jsp" target="_blank" rel="external">http://localhost/test.jsp</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">B1ACBA61EEB15371A3896FCEA5FAF69D</div><div class="line">Hello!0000</div></pre></td></tr></table></figure>
-<p>若出现DENIED Redis is running in protected mode because protected mode is enabled问题<br>具体提示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">redis.clients.jedis.exceptions.JedisDataException: DENIED Redis is running in protected mode because protected mode is enabled, no bind address was specified, no authentication password is requested to clients. In this mode connections are only accepted from the loopback interface. If you want to connect from external computers to Redis you may adopt one of the following solutions:</div><div class="line">1) Just disable protected mode sending the command &apos;CONFIG SET protected-mode no&apos; from the loopback interface by connecting to Redis from the same host the server is running, however MAKE SURE Redis is not publicly accessible from internet if you do so. Use CONFIG REWRITE to make this change permanent.</div><div class="line">2) Alternatively you can just disable the protected mode by editing the Redis configuration file, and setting the protected mode option to &apos;no&apos;, and then restarting the server.</div><div class="line">3) If you started the server manually just for testing, restart it with the &apos;--protected-mode no&apos; option.</div><div class="line">4) Setup a bind address or an authentication password. NOTE: You only need to do one of the above things in order for the server to start accepting connections from the outside.</div></pre></td></tr></table></figure></p>
-<p>你可以根据你的实际情况做出处理。<br>我这里是临时测试，在启动时把protected-mode 设置为no<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># redis-server ./redis.conf --protected-mode no</div></pre></td></tr></table></figure></p>
-<p>如果生产环境建议绑定一个地址或通过密码访问。</p>
-<p>单机方式下上面的方式很容易解决。但集群方式存在一个很大的坑， one client（nginx+tomcat 集群） + one server（redis+sentinel集群）下。无论是关闭protected-mode 还是 bind address 和auth pass 都无效。</p>
-<p>redis集群方式配置失败！！！！</p>
-<p>参考：<br><a href="http://www.cnblogs.com/interdrp/p/4868740.html" target="_blank" rel="external">redis + Tomcat 8 的session共享解决</a></p>
-<p>分布式集群Session共享 简单多tomcat8+redis的session共享实现<br><a href="http://blog.csdn.net/jerome_s/article/details/52658946" target="_blank" rel="external">http://blog.csdn.net/jerome_s/article/details/52658946</a><br><a href="http://blog.csdn.net/chszs/article/details/42610365" target="_blank" rel="external">用Redis存储Tomcat集群的Session</a><br><a href="http://www.cnblogs.com/LiZhiW/p/4851631.html#_label2" target="_blank" rel="external">02.Redis主从集群的Sentinel配置</a><br><a href="http://debugo.com/redis-sentinel/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">Redis Sentinel配置小记</a><br><a href="http://www.cnblogs.com/LiZhiW/p/4851640.html" target="_blank" rel="external">sentinel.conf配置详解</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/17/02.nginx_tomcat_redis/" data-id="cj21cx2gr0002ixs61nm1ggjc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -834,7 +805,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
     </div>
   </div>
 
@@ -844,7 +815,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/分布式-zookeeper/" style="font-size: 10px;">分布式 zookeeper</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具-java安装/" style="font-size: 10px;">工具 java安装</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/hibernate-ORM/" style="font-size: 10px;">hibernate ORM</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/分布式-zookeeper/" style="font-size: 10px;">分布式 zookeeper</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具-java安装/" style="font-size: 10px;">工具 java安装</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
     </div>
   </div>
 
@@ -866,11 +837,15 @@
       <ul>
         
           <li>
+            <a href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+          </li>
+        
+          <li>
             <a href="/2017/06/23/sublime_text3_快捷键/">sublime text3 快捷键</a>
           </li>
         
           <li>
-            <a href="/2017/06/23/mysql访问权限设置/">Host &#39;192.168.＊.＊&#39; is not allowed to connect to this MariaDB server</a>
+            <a href="/2017/05/27/关于hibernate_could_not_resolve_property_provinceid_of_错误/">关于hibernate could not resolve property_ provinceId of 错误</a>
           </li>
         
           <li>
@@ -879,10 +854,6 @@
         
           <li>
             <a href="/2017/05/12/zookeeper 安装和配置/">zookeeper 安装和配置</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/12/java环境配置/">java环境配置</a>
           </li>
         
       </ul>
