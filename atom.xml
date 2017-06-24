@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>秦风 Blog</title>
-  <subtitle>生活、学习，点点滴滴，从现在开始吧… \n 不积跬步,无以至千里;不积小流,无以成江海</subtitle>
+  <subtitle>生活、学习，点点滴滴，从现在开始吧…</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://petewell.cn/"/>
@@ -619,6 +619,36 @@
   </entry>
   
   <entry>
+    <title>03. spring与jedis整合使用</title>
+    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
+    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
+    <published>2017-01-17T01:47:57.000Z</published>
+    <updated>2017-01-20T08:44:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
+<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
+<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
+<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
+<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
+<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
+</ul>
+<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
+&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
+    
+    </summary>
+    
+    
+      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>01. Redis3.2.6 安装及分布式配置</title>
     <link href="http://petewell.cn/2017/01/17/01.redis3.2.6_%E5%AE%89%E8%A3%85%E5%8F%8A%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE/"/>
     <id>http://petewell.cn/2017/01/17/01.redis3.2.6_安装及分布式配置/</id>
@@ -688,36 +718,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;01-Redis3-2-6-安装及分布式配置&quot;&gt;&lt;a href=&quot;#01-Redis3-2-6-安装及分布式配置&quot; class=&quot;headerlink&quot; title=&quot;01.Redis3.2.6 安装及分布式配置&quot;&gt;&lt;/a&gt;01.Redis3.2.6 安装及分布式
-    
-    </summary>
-    
-    
-      <category term="分布式" scheme="http://petewell.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>03. spring与jedis整合使用</title>
-    <link href="http://petewell.cn/2017/01/17/03.spring%E4%B8%8EJedis%E6%95%B4%E5%90%88%E4%BD%BF%E7%94%A8/"/>
-    <id>http://petewell.cn/2017/01/17/03.spring与Jedis整合使用/</id>
-    <published>2017-01-17T01:47:57.000Z</published>
-    <updated>2017-01-20T08:44:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>##03. spring与jedis整合使用</p>
-<h3 id="spring-redis"><a href="#spring-redis" class="headerlink" title="spring redis"></a>spring redis</h3><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4853486.html" target="_blank" rel="external">04.spring-data-redis与Jedis整合使用</a></li>
-<li><a href="https://github.com/kangyonggan/spring-redis" target="_blank" rel="external">spring整合redis实现无侵入式的缓存管理</a></li>
-<li><a href="http://blog.csdn.net/u013725455/article/details/52129283" target="_blank" rel="external">Spring集成Redis使用注解</a></li>
-<li><a href="http://phipray.iteye.com/blog/2248352" target="_blank" rel="external">SpringMVC+Shiro+RedisCluster搭建session统一管理</a></li>
-<li><a href="https://github.com/alexxiyang/shiro-redis" target="_blank" rel="external">shiro-redis</a></li>
-</ul>
-<h3 id="ehcache"><a href="#ehcache" class="headerlink" title="ehcache"></a>ehcache</h3><p>*<a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="external">Spring使用Cache、整合Ehcache</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;##03. spring与jedis整合使用&lt;/p&gt;
-&lt;h3 id=&quot;spring-redis&quot;&gt;&lt;a href=&quot;#spring-redis&quot; class=&quot;headerlink&quot; title=&quot;spring redis&quot;&gt;&lt;/a&gt;spring redis&lt;/h3&gt;&lt;ul
     
     </summary>
     
