@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>秦风 Blog</title>
-  <subtitle>生活、学习，点点滴滴，从现在开始吧…</subtitle>
+  <subtitle>生活、学习，点点滴滴，从现在开始吧… \n 不积跬步,无以至千里;不积小流,无以成江海</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://petewell.cn/"/>
