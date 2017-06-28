@@ -441,7 +441,7 @@
     <link href="http://petewell.cn/2017/05/06/ORA-12518-%20TNS-listener%20could%20not%20hand%20off%20client%20connection/"/>
     <id>http://petewell.cn/2017/05/06/ORA-12518- TNS-listener could not hand off client connection/</id>
     <published>2017-05-06T01:47:57.000Z</published>
-    <updated>2017-06-23T08:06:10.000Z</updated>
+    <updated>2017-06-28T09:55:06.000Z</updated>
     
     <content type="html"><![CDATA[<p>##ORA-12518, TNS:listener could not hand off client connection 解决方案：</p>
 <p>问题：</p>
@@ -490,7 +490,9 @@
     </summary>
     
     
-      <category term="oracle 数据库" scheme="http://petewell.cn/tags/oracle-%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://petewell.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="oracle" scheme="http://petewell.cn/tags/oracle/"/>
     
   </entry>
   
