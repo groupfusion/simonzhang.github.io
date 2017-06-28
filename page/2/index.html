@@ -528,6 +528,84 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-mac os 安装apache" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/16/mac os 安装apache/" class="article-date">
+  <time datetime="2016-06-16T06:47:57.000Z" itemprop="datePublished">2016-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/16/mac os 安装apache/">Mac OS X上安装配置apache服务器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Mac OS X上安装配置apache服务器</p>
+<p>说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：</p>
+<pre><code>1.配置apache的配置文件
+2.设置虚拟主机
+</code></pre><p>启动并查看apache<br>打开终端输入以下命令：</p>
+<pre><code>$sudo apachectl start
+$sudo apachectl -v
+</code></pre><p>配置apache主配置文件<br>apache的主配置文件在路径／etc／apache2/下</p>
+<pre><code>先将原来的文件备份
+$sudo cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.backup
+修改主配置文件
+$vi /etc/apache2/httpd.conf
+</code></pre><p>要修改的地方如下,为了便于参考默认配置，笔者将只是将修改的地方注释掉</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /&gt;</div><div class="line">    #AllowOverride none</div><div class="line">    # Require all denied</div><div class="line">    Require all granted</div><div class="line">    AllowOverride all</div><div class="line">&lt;/Directory&gt;</div><div class="line"></div><div class="line"># Virtual hosts</div><div class="line">#Include /private/etc/apache2/extra/httpd-vhosts.conf</div><div class="line">Include /private/etc/apache2/extra/httpd-vhosts.conf</div></pre></td></tr></table></figure>
+<p>Ps：某些老版本的配置中时allow什么的在网上能找到非常多的教程，在这就不加解释了。</p>
+<p>设置虚拟主机</p>
+<p>apache的默认的根目录在/Library/WebServer/下，配置虚拟主机后可以不用理会默认的网站根目录，根据自己的需要在合适的地方建立不同的网站目录。</p>
+<p>修改httpd-vhosts.conf文件，文件位置在／etc／apache2/extra/下.</p>
+<pre><code>备份原有的文件
+$sudo cp ／etc／apache2/extra/httpd-vhosts.conf ／etc／apache2/extra/httpd-vhosts.conf.backup
+
+$sudo vi ／etc／apache2/extra/httpd-vhosts.conf
+设置虚拟主机(此站点本机访问域名是mysite.local,根目录是/var/wwwroot/abc)
+...
+&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@mysite.local
+    DocumentRoot &quot;/var/wwwroot/abc&quot;
+    ServerName mysite.local
+    ErrorLog &quot;/private/var/log/apache2/mysite.local-error_log&quot;
+    CustomLog &quot;/private/var/log/apache2/mysite.local-access_log&quot; common
+&lt;/VirtualHost&gt;
+...
+</code></pre><p>修改hosts文件，文件位置在/etc/</p>
+<pre><code>$sudo vi ／etc／hosts
+将自定义的域名绑定到127.0.0.1
+...
+127.0.0.1       localhost mysite.local
+...
+</code></pre><p>重新启动Apache服务器</p>
+<pre><code>sudo apachectl restart
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://petewell.cn/2016/06/16/mac os 安装apache/" data-id="cj4gtlogv0000cfs6q6r4cv57" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Jenkins部署到远程（Linux服务器）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/01/22/Jenkins部署到远程（Linux服务器）/" class="article-date">
@@ -599,49 +677,6 @@ cd /app/programs/tomcat_test1/bin
 
 
   
-    <article id="post-在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/" class="article-date">
-  <time datetime="2016-01-05T08:40:04.000Z" itemprop="datePublished">2016-01-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/">在linux 使用exp导出备份数据时提示EXP-00091: Exporting questionable statistics.</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在linux 使用exp导出备份数据时提示：<br>EXP-00091: Exporting questionable statistics.<br>1.问题产生的原因<br>linux下oracle用户环境变量语言集和oracle数据库中的环境变量语言集不同<br>2.解决方法<br>只要将oracle环境变量语言集改成和数据库环境变量语言集一样的就可以<br>查看服务端字符集</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from nls_database_parameters t where t.parameter=&apos;NLS_CHARACTERSET&apos;</div></pre></td></tr></table></figure>
-<p>or</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from v$nls_parameters where parameter=&apos;NLS_CHARACTERSET&apos;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[oracle@rac01 ~]$ export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</div><div class="line">[oracle@rac01 ~]$ exp tuser/****** tables=UCM_BOARDWS_INSTALLWORK,UCM_BOARDWS_APINSTALL file=/orabak/1015installworkBak.dmp log=/orabak/1015installworkBak.log</div><div class="line"></div><div class="line">Export: Release 11.2.0.3.0 - Production on Wed Oct 15 10:05:16 2014</div><div class="line"></div><div class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates. All rights reserved.</div><div class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production</div><div class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</div><div class="line">Data Mining and Real Application Tes</div><div class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</div><div class="line"></div><div class="line">About to export specified tables via Conventional Path ...</div><div class="line">. . exporting table UCM_BOARDWS_INSTALLWORK 1998871 rows exported</div><div class="line">. . exporting table UCM_BOARDWS_APINSTALL 2190269 rows exported</div><div class="line">Export terminated successfully without warnings.</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://petewell.cn/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/" data-id="cj4bdxxvs0015fkuntluoa8f7" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -658,7 +693,7 @@ cd /app/programs/tomcat_test1/bin
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIS/">GIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate-ORM/">hibernate ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-数据库/">mysql 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle-数据库/">oracle 数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式-zookeeper/">分布式 zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具-java安装/">工具 java安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li></ul>
     </div>
   </div>
 
@@ -668,7 +703,7 @@ cd /app/programs/tomcat_test1/bin
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/hibernate-ORM/" style="font-size: 10px;">hibernate ORM</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/分布式-zookeeper/" style="font-size: 10px;">分布式 zookeeper</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具-java安装/" style="font-size: 10px;">工具 java安装</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
+      <a href="/tags/GIS/" style="font-size: 10px;">GIS</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/hibernate-ORM/" style="font-size: 10px;">hibernate ORM</a> <a href="/tags/mysql-数据库/" style="font-size: 10px;">mysql 数据库</a> <a href="/tags/oracle-数据库/" style="font-size: 10px;">oracle 数据库</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/分布式-zookeeper/" style="font-size: 10px;">分布式 zookeeper</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具-java安装/" style="font-size: 10px;">工具 java安装</a> <a href="/tags/开发工具/" style="font-size: 20px;">开发工具</a> <a href="/tags/数据库/" style="font-size: 13.33px;">数据库</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
     </div>
   </div>
 
@@ -677,7 +712,7 @@ cd /app/programs/tomcat_test1/bin
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li></ul>
     </div>
   </div>
 

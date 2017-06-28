@@ -868,6 +868,70 @@
   </entry>
   
   <entry>
+    <title>Mac OS X上安装配置apache服务器</title>
+    <link href="http://petewell.cn/2016/06/16/mac%20os%20%E5%AE%89%E8%A3%85apache/"/>
+    <id>http://petewell.cn/2016/06/16/mac os 安装apache/</id>
+    <published>2016-06-16T06:47:57.000Z</published>
+    <updated>2017-06-28T04:36:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mac OS X上安装配置apache服务器</p>
+<p>说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：</p>
+<pre><code>1.配置apache的配置文件
+2.设置虚拟主机
+</code></pre><p>启动并查看apache<br>打开终端输入以下命令：</p>
+<pre><code>$sudo apachectl start
+$sudo apachectl -v
+</code></pre><p>配置apache主配置文件<br>apache的主配置文件在路径／etc／apache2/下</p>
+<pre><code>先将原来的文件备份
+$sudo cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.backup
+修改主配置文件
+$vi /etc/apache2/httpd.conf
+</code></pre><p>要修改的地方如下,为了便于参考默认配置，笔者将只是将修改的地方注释掉</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /&gt;</div><div class="line">    #AllowOverride none</div><div class="line">    # Require all denied</div><div class="line">    Require all granted</div><div class="line">    AllowOverride all</div><div class="line">&lt;/Directory&gt;</div><div class="line"></div><div class="line"># Virtual hosts</div><div class="line">#Include /private/etc/apache2/extra/httpd-vhosts.conf</div><div class="line">Include /private/etc/apache2/extra/httpd-vhosts.conf</div></pre></td></tr></table></figure>
+<p>Ps：某些老版本的配置中时allow什么的在网上能找到非常多的教程，在这就不加解释了。</p>
+<p>设置虚拟主机</p>
+<p>apache的默认的根目录在/Library/WebServer/下，配置虚拟主机后可以不用理会默认的网站根目录，根据自己的需要在合适的地方建立不同的网站目录。</p>
+<p>修改httpd-vhosts.conf文件，文件位置在／etc／apache2/extra/下.</p>
+<pre><code>备份原有的文件
+$sudo cp ／etc／apache2/extra/httpd-vhosts.conf ／etc／apache2/extra/httpd-vhosts.conf.backup
+
+$sudo vi ／etc／apache2/extra/httpd-vhosts.conf
+设置虚拟主机(此站点本机访问域名是mysite.local,根目录是/var/wwwroot/abc)
+...
+&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@mysite.local
+    DocumentRoot &quot;/var/wwwroot/abc&quot;
+    ServerName mysite.local
+    ErrorLog &quot;/private/var/log/apache2/mysite.local-error_log&quot;
+    CustomLog &quot;/private/var/log/apache2/mysite.local-access_log&quot; common
+&lt;/VirtualHost&gt;
+...
+</code></pre><p>修改hosts文件，文件位置在/etc/</p>
+<pre><code>$sudo vi ／etc／hosts
+将自定义的域名绑定到127.0.0.1
+...
+127.0.0.1       localhost mysite.local
+...
+</code></pre><p>重新启动Apache服务器</p>
+<pre><code>sudo apachectl restart
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mac OS X上安装配置apache服务器&lt;/p&gt;
+&lt;p&gt;说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1.配置apache的配置文件
+2.设置虚拟主机
+&lt;/
+    
+    </summary>
+    
+    
+      <category term="apache" scheme="http://petewell.cn/tags/apache/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Jenkins部署到远程（Linux服务器）</title>
     <link href="http://petewell.cn/2016/01/22/Jenkins%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%EF%BC%88Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89/"/>
     <id>http://petewell.cn/2016/01/22/Jenkins部署到远程（Linux服务器）/</id>
@@ -918,31 +982,6 @@ cd /app/programs/tomcat_test1/bin
     
     
       <category term="开发工具" scheme="http://petewell.cn/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在linux 使用exp导出备份数据时提示EXP-00091: Exporting questionable statistics.</title>
-    <link href="http://petewell.cn/2016/01/05/%E5%9C%A8linux-%E4%BD%BF%E7%94%A8exp%E5%AF%BC%E5%87%BA%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E6%97%B6%E6%8F%90%E7%A4%BAEXP-00091-Exporting-questionable-statistics/"/>
-    <id>http://petewell.cn/2016/01/05/在linux-使用exp导出备份数据时提示EXP-00091-Exporting-questionable-statistics/</id>
-    <published>2016-01-05T08:40:04.000Z</published>
-    <updated>2017-01-20T08:27:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在linux 使用exp导出备份数据时提示：<br>EXP-00091: Exporting questionable statistics.<br>1.问题产生的原因<br>linux下oracle用户环境变量语言集和oracle数据库中的环境变量语言集不同<br>2.解决方法<br>只要将oracle环境变量语言集改成和数据库环境变量语言集一样的就可以<br>查看服务端字符集</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from nls_database_parameters t where t.parameter=&apos;NLS_CHARACTERSET&apos;</div></pre></td></tr></table></figure>
-<p>or</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from v$nls_parameters where parameter=&apos;NLS_CHARACTERSET&apos;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[oracle@rac01 ~]$ export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK</div><div class="line">[oracle@rac01 ~]$ exp tuser/****** tables=UCM_BOARDWS_INSTALLWORK,UCM_BOARDWS_APINSTALL file=/orabak/1015installworkBak.dmp log=/orabak/1015installworkBak.log</div><div class="line"></div><div class="line">Export: Release 11.2.0.3.0 - Production on Wed Oct 15 10:05:16 2014</div><div class="line"></div><div class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates. All rights reserved.</div><div class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production</div><div class="line">With the Partitioning, Real Application Clusters, Automatic Storage Management, OLAP,</div><div class="line">Data Mining and Real Application Tes</div><div class="line">Export done in ZHS16GBK character set and AL16UTF16 NCHAR character set</div><div class="line"></div><div class="line">About to export specified tables via Conventional Path ...</div><div class="line">. . exporting table UCM_BOARDWS_INSTALLWORK 1998871 rows exported</div><div class="line">. . exporting table UCM_BOARDWS_APINSTALL 2190269 rows exported</div><div class="line">Export terminated successfully without warnings.</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在linux 使用exp导出备份数据时提示：&lt;br&gt;EXP-00091: Exporting questionable statistics.&lt;br&gt;1.问题产生的原因&lt;br&gt;linux下oracle用户环境变量语言集和oracle数据库中的环境变量语言集不同&lt;br&gt;2.解
-    
-    </summary>
-    
-    
-      <category term="数据库" scheme="http://petewell.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   

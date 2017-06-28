@@ -3,21 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案 | 秦风 Blog</title>
+  <title>Mac OS X上安装配置apache服务器 | 秦风 Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
-二、临时表空">
+  <meta name="description" content="Mac OS X上安装配置apache服务器
+说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：
+1.配置apache的配置文件
+2.设置虚拟主机
+启动并查看apache打开终端输入以下命令：
+$sudo apachectl start
+$sudo apachectl -v
+配置apache主配置文件apache的主配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案">
-<meta property="og:url" content="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/index.html">
+<meta property="og:title" content="Mac OS X上安装配置apache服务器">
+<meta property="og:url" content="http://petewell.cn/2016/06/16/mac os 安装apache/index.html">
 <meta property="og:site_name" content="秦风 Blog">
-<meta property="og:description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
-二、临时表空">
-<meta property="og:updated_time" content="2017-01-20T08:19:12.000Z">
+<meta property="og:description" content="Mac OS X上安装配置apache服务器
+说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：
+1.配置apache的配置文件
+2.设置虚拟主机
+启动并查看apache打开终端输入以下命令：
+$sudo apachectl start
+$sudo apachectl -v
+配置apache主配置文件apache的主配置">
+<meta property="og:updated_time" content="2017-06-28T04:36:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案">
-<meta name="twitter:description" content="一、临时表空间的作用Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会使用大量的temporary段 ：索引create或rebuild；Order by 或 group by；Distinct 操作；Union 或 intersect 或 minus；Sort-merge joins；IMP/EXP操作；
-二、临时表空">
+<meta name="twitter:title" content="Mac OS X上安装配置apache服务器">
+<meta name="twitter:description" content="Mac OS X上安装配置apache服务器
+说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：
+1.配置apache的配置文件
+2.设置虚拟主机
+启动并查看apache打开终端输入以下命令：
+$sudo apachectl start
+$sudo apachectl -v
+配置apache主配置文件apache的主配置">
   
     <link rel="alternate" href="/atom.xml" title="秦风 Blog" type="application/atom+xml">
   
@@ -88,10 +106,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mac os 安装apache" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" class="article-date">
-  <time datetime="2017-01-05T08:29:57.000Z" itemprop="datePublished">2017-01-05</time>
+    <a href="/2016/06/16/mac os 安装apache/" class="article-date">
+  <time datetime="2016-06-16T06:47:57.000Z" itemprop="datePublished">2016-06-16</time>
 </a>
     
   </div>
@@ -102,7 +120,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案
+      Mac OS X上安装配置apache服务器
     </h1>
   
 
@@ -110,28 +128,54 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、临时表空间的作用"><a href="#一、临时表空间的作用" class="headerlink" title="一、临时表空间的作用"></a>一、临时表空间的作用</h3><p>Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序，下面的操作都会<br>使用大量的temporary段 ：<br>索引create或rebuild；<br>Order by 或 group by；<br>Distinct 操作；<br>Union 或 intersect 或 minus；<br>Sort-merge joins；<br>IMP/EXP操作；</p>
-<h3 id="二、临时表空间建多大合适，个人建议"><a href="#二、临时表空间建多大合适，个人建议" class="headerlink" title="二、临时表空间建多大合适，个人建议"></a>二、临时表空间建多大合适，个人建议</h3><p>1.一般的业务系统频繁使用临时段的需要单独创建临时表空间<br>2.临时表空间的太大或太小都会影响数据库性能，一般建议根据业务系统一天产生的大小作为初始大小。<br>3.临时表空间需要定期维护</p>
-<h3 id="三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）"><a href="#三、oracle11g-临时表空间收缩（只针对oracle11g以后版本）" class="headerlink" title="三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）"></a>三、oracle11g 临时表空间收缩（只针对oracle11g以后版本）</h3><ol>
-<li>常用查询临时表空间视图</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">select * from v$datafile //查询数据文件</div><div class="line">select * from v$tablespace //查询表空间信息</div><div class="line">select * from v$tempfile //查询临时文件信息</div><div class="line">select S.tablespace_name,S.TABLESPACE_SIZE/1024/1024 TSIZE,S.ALLOCATED_SPACE/1024/1024 USIZE,S.FREE_SPACE/1024/1024 FFIZE from dba_temp_free_space S //查询临时表空间使用情况</div></pre></td></tr></table></figure>
-<ol>
-<li>临时表空间收缩</li>
-</ol>
-<p>收缩临时表空间：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter tablespace USER_TEMP_TBS shrink space keep 200M;</div></pre></td></tr></table></figure>
-<p>收缩临时文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLESPACE USER_TEMP_TBS SHRINK TEMPFILE &apos;/opt/oracle/oradata/user_temp_tbs01.dbf&apos; keep 200M;</div></pre></td></tr></table></figure>
-<p>以上操作已经在测试环境中验证过，可以立即收缩空间，对数据库无太大影响，如果是生产库建议晚上做以上操作，否则会出现等待事件。</p>
+        <p>Mac OS X上安装配置apache服务器</p>
+<p>说明：Mac在安装完成Mac系统的时候它已经自带了apache服务器，接下来就是配置和将它启动运行了。那么接下来要做的事情就是：</p>
+<pre><code>1.配置apache的配置文件
+2.设置虚拟主机
+</code></pre><p>启动并查看apache<br>打开终端输入以下命令：</p>
+<pre><code>$sudo apachectl start
+$sudo apachectl -v
+</code></pre><p>配置apache主配置文件<br>apache的主配置文件在路径／etc／apache2/下</p>
+<pre><code>先将原来的文件备份
+$sudo cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.backup
+修改主配置文件
+$vi /etc/apache2/httpd.conf
+</code></pre><p>要修改的地方如下,为了便于参考默认配置，笔者将只是将修改的地方注释掉</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /&gt;</div><div class="line">    #AllowOverride none</div><div class="line">    # Require all denied</div><div class="line">    Require all granted</div><div class="line">    AllowOverride all</div><div class="line">&lt;/Directory&gt;</div><div class="line"></div><div class="line"># Virtual hosts</div><div class="line">#Include /private/etc/apache2/extra/httpd-vhosts.conf</div><div class="line">Include /private/etc/apache2/extra/httpd-vhosts.conf</div></pre></td></tr></table></figure>
+<p>Ps：某些老版本的配置中时allow什么的在网上能找到非常多的教程，在这就不加解释了。</p>
+<p>设置虚拟主机</p>
+<p>apache的默认的根目录在/Library/WebServer/下，配置虚拟主机后可以不用理会默认的网站根目录，根据自己的需要在合适的地方建立不同的网站目录。</p>
+<p>修改httpd-vhosts.conf文件，文件位置在／etc／apache2/extra/下.</p>
+<pre><code>备份原有的文件
+$sudo cp ／etc／apache2/extra/httpd-vhosts.conf ／etc／apache2/extra/httpd-vhosts.conf.backup
 
+$sudo vi ／etc／apache2/extra/httpd-vhosts.conf
+设置虚拟主机(此站点本机访问域名是mysite.local,根目录是/var/wwwroot/abc)
+...
+&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@mysite.local
+    DocumentRoot &quot;/var/wwwroot/abc&quot;
+    ServerName mysite.local
+    ErrorLog &quot;/private/var/log/apache2/mysite.local-error_log&quot;
+    CustomLog &quot;/private/var/log/apache2/mysite.local-access_log&quot; common
+&lt;/VirtualHost&gt;
+...
+</code></pre><p>修改hosts文件，文件位置在/etc/</p>
+<pre><code>$sudo vi ／etc／hosts
+将自定义的域名绑定到127.0.0.1
+...
+127.0.0.1       localhost mysite.local
+...
+</code></pre><p>重新启动Apache服务器</p>
+<pre><code>sudo apachectl restart
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://petewell.cn/2017/01/05/关于各项目临时表空间占用磁盘空间比较大，并且再持续增长的解决方案/" data-id="cj4bdxxvo0014fkunmvavb424" class="article-share-link">分享</a>
+      <a data-url="http://petewell.cn/2016/06/16/mac os 安装apache/" data-id="cj4gtlogv0000cfs6q6r4cv57" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
 
     </footer>
   </div>
@@ -139,19 +183,19 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2017/01/05/关于arcgis-server性能优化/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/02/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          关于arcgis server性能优化
+          Hello World
         
       </div>
     </a>
   
   
-    <a href="/2017/01/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/01/22/Jenkins部署到远程（Linux服务器）/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Jenkins部署到远程（Linux服务器）</div>
     </a>
   
 </nav>
