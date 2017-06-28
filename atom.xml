@@ -421,7 +421,7 @@
     <link href="http://petewell.cn/2017/05/12/java%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     <id>http://petewell.cn/2017/05/12/java环境配置/</id>
     <published>2017-05-12T01:47:57.000Z</published>
-    <updated>2017-06-23T08:18:26.000Z</updated>
+    <updated>2017-06-28T09:57:48.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="http://www.linuxidc.com/Linux/2016-06/132678.htm" target="_blank" rel="external">http://www.linuxidc.com/Linux/2016-06/132678.htm</a><br>下载：<br>下载 jdk-8u91-linux-x64.tar.gz：<br> wget –no-check-certificate –no-cookies –header “Cookie: Oraclelicense=accept-securebackup-cookie” <a href="http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm</a><br> wget –no-check-certificate –no-cookies –header “Cookie: oraclelicense=accept-securebackup-cookie” <a href="http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz</a><br> wget –no-check-certificate –no-cookies –header “Cookie: oraclelicense=accept-securebackup-cookie” <a href="http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.rpm" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.rpm</a><br> wget –no-cookies –header “Cookie: oraclelicense=accept-securebackup-cookie;” <a href="http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar" target="_blank" rel="external">http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar</a></p>
 <h3 id="mac-os"><a href="#mac-os" class="headerlink" title="mac os"></a>mac os</h3><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>JAVA_HOME=/usr/local/jdk/jdk1.8.0_91<br> JRE_HOME=$JAVA_HOME/jre<br> PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin<br> CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib/dt.jar<br> export JAVA_HOME JRE_HOME PATH CLASSPATH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#vi /etc/profile</div><div class="line">#source /etc/profile</div><div class="line">#java -version</div><div class="line">java version &quot;1.8.0_91&quot;</div><div class="line">Java(TM) SE Runtime Environment (build 1.8.0_91-b14)</div><div class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)</div></pre></td></tr></table></figure></p>
@@ -434,7 +434,9 @@
     </summary>
     
     
-      <category term="工具 java安装" scheme="http://petewell.cn/tags/%E5%B7%A5%E5%85%B7-java%E5%AE%89%E8%A3%85/"/>
+      <category term="工具" scheme="http://petewell.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="java安装" scheme="http://petewell.cn/tags/java%E5%AE%89%E8%A3%85/"/>
     
   </entry>
   
